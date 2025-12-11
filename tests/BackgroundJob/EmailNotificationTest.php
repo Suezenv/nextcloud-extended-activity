@@ -29,23 +29,25 @@ use OCA\Activity\MailQueueHandler;
 use OCA\Activity\Tests\TestCase;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
 
 /**
  * Class EmailNotificationTest
+ *
+ * @group DB
  * @package OCA\Activity\Tests\BackgroundJob
  */
-#[Group('DB')]
 class EmailNotificationTest extends TestCase {
-	public static function constructAndRunData(): array {
+	public function constructAndRunData(): array {
 		return [
 			[true],
 			[false],
 		];
 	}
 
-	#[DataProvider('constructAndRunData')]
+	/**
+	 * @dataProvider constructAndRunData
+	 * @param bool $isCLI
+	 */
 	public function testConstructAndRun(bool $isCLI): void {
 		$backgroundJob = new EmailNotification(
 			$this->createMock(ITimeFactory::class),

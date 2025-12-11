@@ -4,8 +4,8 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-	<id>activity</id>
-	<name>Activity</name>
+	<id>~extended_activity</id>
+	<name>Extended Activity</name>
 	<summary>This application enables people to view a log of activities about them, their files or other data.</summary>
 	<description>
 		This app allows people to see actions related to their files and data in Nextcloud.
@@ -15,8 +15,8 @@
 		More information is available in the Activity documentation.
 	</description>
 
-	<version>6.0.0-dev.0</version>
-	<licence>AGPL-3.0-or-later</licence>
+	<version>5.0.0-dev.0</version>
+	<licence>agpl</licence>
 	<author>Frank Karlitschek</author>
 	<author>Joas Schilling</author>
 	<author>Ferdinand Thiessen</author>
@@ -37,7 +37,7 @@
 	<repository>https://github.com/nextcloud/activity.git</repository>
 
 	<dependencies>
-		<nextcloud min-version="33" max-version="33" />
+		<nextcloud min-version="32" max-version="32" />
 	</dependencies>
 
 	<background-jobs>

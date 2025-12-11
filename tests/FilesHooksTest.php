@@ -45,21 +45,19 @@ use OCP\IGroup;
 use OCP\IGroupManager;
 use OCP\IURLGenerator;
 use OCP\IUser;
-use OCP\Server;
 use OCP\Share\IManager as ShareIManager;
 use OCP\Share\IShare;
 use OCP\Share\IShareHelper;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
 use PHPUnit\Framework\MockObject\MockObject;
 use Psr\Log\LoggerInterface;
 
 /**
  * Class FilesHooksTest
  * Testing the public methods with internals being mocked out
+ *
+ * @group DB
  * @package OCA\Activity
  */
-#[Group('DB')]
 class FilesHooksTest extends TestCase {
 	protected FilesHooks $filesHooks;
 	protected IManager&MockObject $activityManager;
@@ -74,8 +72,12 @@ class FilesHooksTest extends TestCase {
 	protected IConfig&MockObject $config;
 	protected NotificationGenerator&MockObject $notificationGenerator;
 	protected TagManager&MockObject $tagManager;
-	protected Tags&MockObject $tags;
-	protected (OCA\Circles\CirclesManager&MockObject)|null $teamManager;
+	protected $tags;
+	/**
+	 * @todo With PHP 8.2 we can put this directly on the declaration instead of a comment but 8.1 does not allow the parenthesis
+	 * @var (OCA\Circles\CirclesManager&MockObject)|null
+	 */
+	protected $teamManager;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -91,23 +93,29 @@ class FilesHooksTest extends TestCase {
 		$this->userMountCache = $this->createMock(IUserMountCache::class);
 		$this->config = $this->createMock(IConfig::class);
 		$this->notificationGenerator = $this->createMock(NotificationGenerator::class);
-		$this->tags = $this->createMock(Tags::class);
-		$this->teamManager = null;
 		$this->tagManager = $this->createMock(TagManager::class);
+		$this->tags = $this->createMock(Tags::class);
 		$this->tagManager->method('getUsersFavoritingObject')
 			->willReturn([]);
+		$this->teamManager = null;
+
 		$this->tagManager->method('load')
 			->willReturn($this->tags);
 
 		$this->filesHooks = $this->getFilesHooks();
 	}
 
+	/**
+	 * @param array $mockedMethods
+	 * @param string $user
+	 * @return FilesHooks&MockObject
+	 */
 	protected function getFilesHooks(array $mockedMethods = [], string $user = 'user'): FilesHooks {
 		$currentUser = $this->createMock(CurrentUser::class);
-		$currentUser
+		$currentUser->expects($this->any())
 			->method('getUID')
 			->willReturn($user);
-		$currentUser
+		$currentUser->expects($this->any())
 			->method('getUserIdentifier')
 			->willReturn($user);
 		/** @var LoggerInterface $logger */
@@ -123,7 +131,7 @@ class FilesHooksTest extends TestCase {
 					$this->view,
 					$this->rootFolder,
 					$this->shareHelper,
-					Server::get(IDBConnection::class),
+					\OCP\Server::get(IDBConnection::class),
 					$this->urlGenerator,
 					$logger,
 					$currentUser,
@@ -145,7 +153,7 @@ class FilesHooksTest extends TestCase {
 			$this->view,
 			$this->rootFolder,
 			$this->shareHelper,
-			Server::get(IDBConnection::class),
+			\OCP\Server::get(IDBConnection::class),
 			$this->urlGenerator,
 			$logger,
 			$currentUser,
@@ -159,7 +167,7 @@ class FilesHooksTest extends TestCase {
 
 	protected function getUserMock(string $uid): IUser {
 		$user = $this->createMock(IUser::class);
-		$user
+		$user->expects($this->any())
 			->method('getUID')
 			->willReturn($uid);
 		return $user;
@@ -172,7 +180,13 @@ class FilesHooksTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataFileCreate')]
+	/**
+	 * @dataProvider dataFileCreate
+	 *
+	 * @param mixed $currentUser
+	 * @param string $selfSubject
+	 * @param string $othersSubject
+	 */
 	public function testFileCreate(string $currentUser, string $selfSubject, string $othersSubject, string $type): void {
 		$filesHooks = $this->getFilesHooks([
 			'addNotificationsForFileAction',
@@ -185,7 +199,11 @@ class FilesHooksTest extends TestCase {
 		$filesHooks->fileCreate('path');
 	}
 
-	#[DataProvider('dataFileCreate')]
+	/**
+	 * @dataProvider dataFileCreate
+	 *
+	 * @param string $currentUser
+	 */
 	public function testFileCreateRoot(string $currentUser): void {
 		$filesHooks = $this->getFilesHooks([
 			'addNotificationsForFileAction',
@@ -241,7 +259,7 @@ class FilesHooksTest extends TestCase {
 		$filesHooks->expects($this->never())
 			->method('getSourcePathAndOwner');
 
-		self::invokePrivate($filesHooks, 'addNotificationsForFileAction', ['/test.txt.part', '', '', '']);
+		$this->invokePrivate($filesHooks, 'addNotificationsForFileAction', ['/test.txt.part', '', '', '']);
 	}
 
 	public static function dataAddNotificationsForFileAction(): array {
@@ -345,7 +363,14 @@ class FilesHooksTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataAddNotificationsForFileAction')]
+	/**
+	 * @dataProvider dataAddNotificationsForFileAction
+	 *
+	 * @param array $filterUsers
+	 * @param bool $mountCacheUsed
+	 * @param bool $isFavorite
+	 * @param array $addNotifications
+	 */
 	public function testAddNotificationsForFileAction(array $filterUsers, bool $mountCacheUsed, bool $isFavorite, array $addNotifications): void {
 		$filesHooks = $this->getFilesHooks([
 			'getSourcePathAndOwner',
@@ -422,7 +447,7 @@ class FilesHooksTest extends TestCase {
 
 		$this->settings->expects($this->exactly(2))
 			->method('filterUsersBySetting')
-			->willReturnCallback(function ($users, $method) use ($filterUsers) {
+			->willReturnCallback(function ($users, $method, $type) use ($filterUsers) {
 				return $filterUsers[$method];
 			});
 
@@ -441,7 +466,7 @@ class FilesHooksTest extends TestCase {
 			];
 		}
 		$receivedActivities = [];
-		$filesHooks
+		$filesHooks->expects($this->any())
 			->method('addNotificationsForUser')
 			->willReturnCallback(function (...$params) use (&$receivedActivities) {
 				$receivedActivities[] = $params;
@@ -476,8 +501,8 @@ class FilesHooksTest extends TestCase {
 			->method('shareWithUser')
 			->with('u1', $node, 'path');
 
-		/** @var ShareIManager $manager */
-		$manager = Server::get(ShareIManager::class);
+		/** @var ShareIManager */
+		$manager = \OC::$server->get(ShareIManager::class);
 		$share = $manager->newShare();
 		$share->setSharedWith('u1');
 		$share->setShareType(IShare::TYPE_USER);
@@ -498,8 +523,8 @@ class FilesHooksTest extends TestCase {
 			->method('shareWithGroup')
 			->with('g1', $node, 'path', 42);
 
-		/** @var ShareIManager $manager */
-		$manager = Server::get(ShareIManager::class);
+		/** @var ShareIManager */
+		$manager = \OC::$server->get(ShareIManager::class);
 		$share = $manager->newShare();
 		$share->setId('42');
 		$share->setSharedWith('g1');
@@ -521,8 +546,8 @@ class FilesHooksTest extends TestCase {
 			->method('shareByLink')
 			->with($node, 'admin');
 
-		/** @var ShareIManager $manager */
-		$manager = Server::get(ShareIManager::class);
+		/** @var ShareIManager */
+		$manager = \OC::$server->get(ShareIManager::class);
 		$share = $manager->newShare();
 		$share->setShareType(IShare::TYPE_LINK);
 		$share->setNodeType('file');
@@ -539,7 +564,13 @@ class FilesHooksTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataShareWithUser')]
+	/**
+	 * @dataProvider dataShareWithUser
+	 *
+	 * @param string $itemType
+	 * @param string $fileTarget
+	 * @param bool $isFile
+	 */
 	public function testShareWithUser(string $itemType, string $fileTarget): void {
 		$isFile = $itemType === 'file';
 		$filesHooks = $this->getFilesHooks([
@@ -658,7 +689,15 @@ class FilesHooksTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataShareWithGroup')]
+	/**
+	 * @dataProvider dataShareWithGroup
+	 * @param array $usersInGroup
+	 * @param int $settingCalls
+	 * @param int $fixCalls
+	 * @param array $settingUsers
+	 * @param array $settingsReturn
+	 * @param array $addNotifications
+	 */
 	public function testShareWithGroup(array $usersInGroup, int $settingCalls, int $fixCalls, array $settingUsers, array $settingsReturn, array $addNotifications): void {
 		foreach ($usersInGroup as &$users) {
 			$users = array_map($this->getUserMock(...), $users);
@@ -674,7 +713,7 @@ class FilesHooksTest extends TestCase {
 		]);
 
 		$group = $this->createMock(IGroup::class);
-		$group
+		$group->expects($this->any())
 			->method('searchUsers')
 			->with('')
 			->willReturnOnConsecutiveCalls(...$usersInGroup);
@@ -716,7 +755,7 @@ class FilesHooksTest extends TestCase {
 			];
 		}
 		$receivedActivities = [];
-		$filesHooks
+		$filesHooks->expects($this->any())
 			->method('addNotificationsForUser')
 			->willReturnCallback(function (...$params) use (&$receivedActivities) {
 				$receivedActivities[] = $params;
@@ -805,7 +844,15 @@ class FilesHooksTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataShareNotificationForOriginalOwners')]
+	/**
+	 * @dataProvider dataShareNotificationForOriginalOwners
+	 *
+	 * @param bool $validMountPoint
+	 * @param bool $validSharedStorage
+	 * @param string $pathOwner
+	 * @param string $shareeUser
+	 * @param int $numReshareNotification
+	 */
 	public function testShareNotificationForOriginalOwners(bool $validMountPoint, bool $validSharedStorage, string $pathOwner, string $shareeUser, int $numReshareNotification): void {
 		$filesHooks = $this->getFilesHooks([
 			'reshareNotificationForSharer',
@@ -884,7 +931,22 @@ class FilesHooksTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataAddNotificationsForUser')]
+	/**
+	 * @dataProvider dataAddNotificationsForUser
+	 *
+	 * @param string $user
+	 * @param string $subject
+	 * @param array $parameter
+	 * @param int $fileId
+	 * @param string $path
+	 * @param string $urlPath
+	 * @param bool $isFile
+	 * @param bool $notification
+	 * @param bool $email
+	 * @param string $type
+	 * @param string $app
+	 * @param bool $sentEmail
+	 */
 	public function testAddNotificationsForUser(string $user, string $subject, array $parameter, int $fileId, string $path, string $urlPath, bool $isFile, bool $notification, bool $email, string $type, string $app, bool $sentEmail): void {
 		$this->urlGenerator->expects($this->once())
 			->method('linkToRouteAbsolute')

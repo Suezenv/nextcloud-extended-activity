@@ -1,12 +1,12 @@
 {
 	"name": "nextcloud/activity",
 	"description": "activity",
-	"license": "AGPL-3.0-or-later",
+	"license": "AGPL",
 	"config": {
 		"optimize-autoloader": true,
 		"classmap-authoritative": true,
 		"platform": {
-			"php": "8.2"
+			"php": "8.3"
 		},
 		"sort-packages": true,
 		"allow-plugins": {
@@ -34,7 +34,7 @@
 	},
 	"require-dev": {
 		"bamarni/composer-bin-plugin": "^1.8",
-		"nextcloud/ocp": "dev-master"
+		"nextcloud/ocp": "dev-stable32"
 	},
 	"extra": {
 		"bamarni-bin": {

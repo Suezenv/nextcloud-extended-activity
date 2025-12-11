@@ -35,9 +35,7 @@ use OCP\IDBConnection;
 use OCP\IURLGenerator;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
-use OCP\Mail\IEmailValidator;
 use OCP\Mail\IMailer;
-use OCP\Notification\IManager as INotificationManager;
 use OCP\RichObjectStrings\IValidator;
 use OCP\Share\Events\BeforeShareDeletedEvent;
 use OCP\Share\Events\ShareCreatedEvent;
@@ -82,12 +80,12 @@ class Application extends App implements IBootstrap {
 			$systemConfig = $c->get(SystemConfig::class);
 			$configPrefix = 'activity_';
 
-			if ($systemConfig->getValue($configPrefix . 'dbuser', null) === null
-				&& $systemConfig->getValue($configPrefix . 'dbpassword', null) === null
-				&& $systemConfig->getValue($configPrefix . 'dbname', null) === null
-				&& $systemConfig->getValue($configPrefix . 'dbhost', null) === null
-				&& $systemConfig->getValue($configPrefix . 'dbport', null) === null
-				&& $systemConfig->getValue($configPrefix . 'dbdriveroptions', null) === null) {
+			if ($systemConfig->getValue($configPrefix . 'dbuser', null) === null &&
+				$systemConfig->getValue($configPrefix . 'dbpassword', null) === null &&
+				$systemConfig->getValue($configPrefix . 'dbname', null) === null &&
+				$systemConfig->getValue($configPrefix . 'dbhost', null) === null &&
+				$systemConfig->getValue($configPrefix . 'dbport', null) === null &&
+				$systemConfig->getValue($configPrefix . 'dbdriveroptions', null) === null) {
 				return $c->get(IDBConnection::class);
 			}
 
@@ -120,7 +118,6 @@ class Application extends App implements IBootstrap {
 				$c->get(Data::class),
 				$c->get(GroupHelper::class),
 				$c->get(UserSettings::class),
-				$c->get(IEmailValidator::class),
 			);
 		});
 
@@ -147,24 +144,25 @@ class Application extends App implements IBootstrap {
 	/**
 	 * Registers the consumer to the Activity Manager
 	 */
-	private function registerActivityConsumer(): void {
+	private function registerActivityConsumer() {
 		$c = $this->getContainer();
+		/** @var \OCP\IServerContainer $server */
 		$server = $c->getServer();
 
-		$server->get(IManager::class)->registerConsumer(function () use ($c) {
-			return $c->get(Consumer::class);
+		$server->getActivityManager()->registerConsumer(function () use ($c) {
+			return $c->query(Consumer::class);
 		});
 	}
 
-	public function registerNotifier(): void {
+	public function registerNotifier() {
 		$server = $this->getContainer()->getServer();
-		$server->get(INotificationManager::class)->registerNotifierService(NotificationGenerator::class);
+		$server->getNotificationManager()->registerNotifierService(NotificationGenerator::class);
 	}
 
 	/**
 	 * Register the hooks for filesystem operations
 	 */
-	private function registerFilesActivity(IRegistrationContext $context): void {
+	private function registerFilesActivity(IRegistrationContext $context) {
 		// All other events from other apps have to be send via the Consumer
 		Util::connectHook('OC_Filesystem', 'post_create', FilesHooksStatic::class, 'fileCreate');
 		Util::connectHook('OC_Filesystem', 'post_update', FilesHooksStatic::class, 'fileUpdate');

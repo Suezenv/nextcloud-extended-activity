@@ -25,71 +25,60 @@ declare(strict_types=1);
 namespace OCA\Activity\Tests\Listener;
 
 use OCA\Activity\Listener\SetUserDefaults;
-use OCP\IAppConfig;
 use OCP\IConfig;
 use OCP\IUser;
 use OCP\User\Events\PostLoginEvent;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 use PHPUnit\Framework\TestCase;
 
 class SetUserDefaultsTest extends TestCase {
-	private IConfig&MockObject $config;
-	private IAppConfig&MockObject $appConfig;
-	private SetUserDefaults $listener;
-	private PostLoginEvent $event;
+	/**
+	 * @var IConfig|MockObject
+	 */
+	private $config;
+
+	/**
+	 * @var SetUserDefaults
+	 */
+	private $listener;
+
+	/** @var IUser|MockObject */
+	private $user;
+
+	/** @var PostLoginEvent */
+	private $event;
 
 	public const UID = 'myuser';
 
 	public function setUp(): void {
 		parent::setUp();
 		$this->config = $this->createMock(IConfig::class);
-		$this->appConfig = $this->createMock(IAppConfig::class);
-		$user = $this->createMock(IUser::class);
-		$user->expects($this->atLeast(1))->method('getUID')->willReturn(self::UID);
-		$this->event = new PostLoginEvent($user, self::UID, 'somepassword', true);
+		$this->user = $this->createMock(IUser::class);
+		$this->user->expects($this->atLeast(1))->method('getUID')->willReturn(self::UID);
+		$this->event = new PostLoginEvent($this->user, self::UID, 'somepassword', true);
 
-		$this->listener = new SetUserDefaults($this->config, $this->appConfig);
+		$this->listener = new SetUserDefaults($this->config);
 	}
 
 	public function testSettingUserDefaultsAlreadyConfigured(): void {
 		$this->config->expects($this->once())->method('getUserValue')->with(self::UID, 'activity', 'configured', 'no')->willReturn('yes');
-		$this->appConfig->expects($this->never())->method('getKeys');
+		$this->config->expects($this->never())->method('getAppKeys');
 		$this->listener->handle($this->event);
 	}
 
-	#[DataProvider('dataForTestSettingUserDefaultsNotConfigured')]
+	/**
+	 * @dataProvider dataForTestSettingUserDefaultsNotConfigured
+	 */
 	public function testSettingUserDefaultsNotConfigured(string $key, array $getUserValueArgs, array $getUserValueReturns, array $setUserValuesArgs): void {
-		$matcher = $this->exactly(count($getUserValueArgs));
-		$this->config
-			->expects($matcher)
-			->method('getUserValue')
-			->willReturnCallback(function () use ($matcher, $getUserValueReturns) {
-				$invocation = $matcher->numberOfInvocations();
-				return $getUserValueReturns[$invocation - 1];
-			});
-		$matcher = $this->exactly(count($setUserValuesArgs));
-		$this->config
-			->expects($matcher)
-			->method('setUserValue')
-			->willReturnCallback(function () use ($matcher, $setUserValuesArgs) {
-				$invocation = $matcher->numberOfInvocations();
-				return $setUserValuesArgs[$invocation - 1];
-			});
-		$this->appConfig
-			->expects($this->exactly(count($setUserValuesArgs) > 1 ? 1 : 0))
-			->method('getValueString')
-			->with('activity', $key, '')
-			->willReturn('defaultAppValue');
-		$this->appConfig
-			->expects($this->once())
-			->method('getKeys')
-			->willReturn([$key]);
+		$this->config->expects($this->exactly(count($getUserValueArgs)))->method('getUserValue')->withConsecutive(...$getUserValueArgs)->willReturnOnConsecutiveCalls(...$getUserValueReturns);
+		$this->config->expects($this->exactly(count($setUserValuesArgs)))->method('setUserValue')->withConsecutive(...$setUserValuesArgs);
+		$this->config->expects($this->exactly(count($setUserValuesArgs) > 1 ? 1 : 0))->method('getAppValue')->with('activity', $key)->willReturn('defaultAppValue');
+		$this->config->expects($this->once())->method('getAppKeys')->willReturn([$key]);
 
 		$this->listener->handle($this->event);
 	}
 
-	public static function dataForTestSettingUserDefaultsNotConfigured(): array {
+	public function dataForTestSettingUserDefaultsNotConfigured(): array {
 		return [
 			[
 				'not_notify',

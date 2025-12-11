@@ -28,13 +28,16 @@ use OCP\Activity\ActivitySettings;
 use OCP\Activity\Exceptions\SettingNotFoundException;
 use OCP\Activity\IManager;
 use OCP\IConfig;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class UserSettingsTest extends TestCase {
-	protected UserSettings $userSettings;
-	protected IManager&MockObject $activityManager;
-	protected IConfig&MockObject $config;
+	/** @var UserSettings */
+	protected $userSettings;
+
+	/** @var IManager|MockObject */
+	protected $activityManager;
+	/** @var IConfig|MockObject */
+	protected $config;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -43,7 +46,7 @@ class UserSettingsTest extends TestCase {
 		$this->userSettings = new UserSettings($this->activityManager, $this->config);
 	}
 
-	public static function getDefaultSettingData(): array {
+	public function getDefaultSettingData(): array {
 		return [
 			['email', 'type1', false],
 			['setting', 'batchtime', 3600],
@@ -51,7 +54,13 @@ class UserSettingsTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('getDefaultSettingData')]
+	/**
+	 * @dataProvider getDefaultSettingData
+	 *
+	 * @param string $method
+	 * @param string $type
+	 * @param mixed $expected
+	 */
 	public function testGetDefaultSetting(string $method, string $type, $expected): void {
 		if ($method !== 'setting') {
 			if ($type === 'not-exists') {

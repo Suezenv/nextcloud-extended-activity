@@ -28,18 +28,26 @@ use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;
 use OCP\Files\NotFoundException;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
 
 class ViewInfoCacheTest extends TestCase {
-	protected MockObject&IRootFolder $rootFolder;
+	/** @var IRootFolder|MockObject */
+	protected $rootFolder;
+
+	/** @var ViewInfoCache|MockObject */
+	protected $infoCache;
 
 	protected function setUp(): void {
 		parent::setUp();
+
 		$this->rootFolder = $this->createMock(IRootFolder::class);
 	}
 
-	public function getCache(array $methods = []): ViewInfoCache|MockObject {
+	/**
+	 * @param array $methods
+	 * @return ViewInfoCache|MockObject
+	 */
+	public function getCache(array $methods = []): ViewInfoCache {
 		if (empty($methods)) {
 			return new ViewInfoCache(
 				$this->rootFolder
@@ -54,7 +62,7 @@ class ViewInfoCacheTest extends TestCase {
 			->getMock();
 	}
 
-	public static function dataGetInfoById(): array {
+	public function dataGetInfoById(): array {
 		return [
 			[
 				'user', 23, 'path', [], true, 'findInfoById',
@@ -110,8 +118,17 @@ class ViewInfoCacheTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataGetInfoById')]
-	public function testGetInfoById(string $user, int $id, string|array $path, array $cache, bool $callsFind, string|array $expected): void {
+	/**
+	 * @dataProvider dataGetInfoById
+	 *
+	 * @param string $user
+	 * @param int $id
+	 * @param string $path
+	 * @param array $cache
+	 * @param bool $callsFind
+	 * @param string $expected
+	 */
+	public function testGetInfoById(string $user, int $id, string $path, array $cache, bool $callsFind, $expected): void {
 		$infoCache = $this->getCache([
 			'findInfoById',
 		]);
@@ -129,7 +146,7 @@ class ViewInfoCacheTest extends TestCase {
 		$this->assertSame($expected, $infoCache->getInfoById($user, $id, $path));
 	}
 
-	public static function dataFindInfoById(): array {
+	public function dataFindInfoById(): array {
 		return [
 			[
 				'user1', 23, '/test1', null, null, '/test1', false,
@@ -229,11 +246,23 @@ class ViewInfoCacheTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataFindInfoById')]
+	/**
+	 * @dataProvider dataFindInfoById
+	 *
+	 * @param string $user
+	 * @param int $fileId
+	 * @param string $filename
+	 * @param string|null $path
+	 * @param string|null $pathTrash
+	 * @param string $isDirPath
+	 * @param bool $isDir
+	 * @param array $expected
+	 * @param array $expectedCache
+	 */
 	public function testFindInfoById(string $user, int $fileId, string $filename, ?string $path, ?string $pathTrash, string $isDirPath, bool $isDir, array $expected, array $expectedCache): void {
 		$userFolder = $this->createMock(Folder::class);
 
-		$this->rootFolder
+		$this->rootFolder->expects($this->any())
 			->method('getUserFolder')
 			->with($user)
 			->willReturn($userFolder);
@@ -255,10 +284,10 @@ class ViewInfoCacheTest extends TestCase {
 					->willThrowException(new NotFoundException());
 			} else {
 				$node = $this->createMock($isDir ? Folder::class : File::class);
-				$node
+				$node->expects($this->any())
 					->method('getPath')
 					->willReturn('/' . $user . '/files_trashbin' . $pathTrash);
-				$userTrashBin
+				$userTrashBin->expects($this->any())
 					->method('getRelativePath')
 					->with('/' . $user . '/files_trashbin' . $pathTrash)
 					->willReturn($pathTrash);
@@ -272,10 +301,10 @@ class ViewInfoCacheTest extends TestCase {
 			}
 		} else {
 			$node = $this->createMock($isDir ? Folder::class : File::class);
-			$node
+			$node->expects($this->any())
 				->method('getPath')
 				->willReturn('/' . $user . '/files' . $path);
-			$userFolder
+			$userFolder->expects($this->any())
 				->method('getRelativePath')
 				->with('/' . $user . '/files' . $path)
 				->willReturn($path);

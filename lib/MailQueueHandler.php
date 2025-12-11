@@ -20,7 +20,6 @@ use OCP\IUser;
 use OCP\IUserManager;
 use OCP\L10N\IFactory;
 use OCP\Mail\Headers\AutoSubmitted;
-use OCP\Mail\IEmailValidator;
 use OCP\Mail\IMailer;
 use OCP\RichObjectStrings\IValidator;
 use OCP\Util;
@@ -56,17 +55,16 @@ class MailQueueHandler {
 		protected Data $data,
 		protected GroupHelper $groupHelper,
 		protected UserSettings $userSettings,
-		protected IEmailValidator $emailValidator,
 	) {
 	}
 
 	/**
 	 * Send an email to {$limit} users
 	 *
-	 * @param int $limit Number of users we want to send an email to
-	 * @param int $sendTime The latest send time
-	 * @param bool $forceSending Ignores latest send and just sends all emails
-	 * @param int|null $restrictEmails null or one of UserSettings::EMAIL_SEND_*, will overwrite force send
+	 * @param $limit Number of users we want to send an email to
+	 * @param $sendTime The latest send time
+	 * @param $forceSending Ignores latest send and just sends all emails
+	 * @param $restrictEmails null or one of UserSettings::EMAIL_SEND_*, will overwrite force send
 	 * @return int Number of users we sent an email to
 	 */
 	public function sendEmails(int $limit, int $sendTime, bool $forceSending = false, ?int $restrictEmails = null): int {
@@ -93,13 +91,7 @@ class MailQueueHandler {
 				continue;
 			}
 
-			try {
-				$userObject = $this->userManager->get($user);
-			} catch (\Exception $e) {
-				$this->logger->error('An error happened while trying to find ' . $user . ', skipping', ['exception' => $e]);
-				continue;
-			}
-
+			$userObject = $this->userManager->get($user);
 			$email = $userObject ? $userObject->getEMailAddress() : '';
 			if (empty($email)) {
 				// The user did not setup an email address
@@ -279,7 +271,7 @@ class MailQueueHandler {
 			return true;
 		}
 
-		if (!$this->emailValidator->isValid($email)) {
+		if (!$this->mailer->validateMailAddress($email)) {
 			$this->logger->warning('Notification for user "{user}" not sent because the email address "{email}" is invalid.', ['user' => $userName, 'email' => $email]);
 			return true;
 		}

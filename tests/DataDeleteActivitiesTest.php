@@ -32,10 +32,6 @@ use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\DB\IPreparedStatement;
 use OCP\IConfig;
-use OCP\IDBConnection;
-use OCP\Server;
-use PHPUnit\Framework\Attributes\DataProvider;
-use PHPUnit\Framework\Attributes\Group;
 use Psr\Log\LoggerInterface;
 
 /**
@@ -44,9 +40,9 @@ use Psr\Log\LoggerInterface;
  * @group DB
  * @package OCA\Activity\Tests
  */
-#[Group('DB')]
 class DataDeleteActivitiesTest extends TestCase {
-	protected Data $data;
+	/** @var Data */
+	protected $data;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -58,8 +54,7 @@ class DataDeleteActivitiesTest extends TestCase {
 			['affectedUser' => 'otherUser', 'subject' => 'subject2', 'time' => time()],
 		];
 
-		$queryActivity = Server::get(IDBConnection::class)
-			->prepare('INSERT INTO `*PREFIX*activity`(`app`, `subject`, `subjectparams`, `message`, `messageparams`, `file`, `link`, `user`, `affecteduser`, `timestamp`, `priority`, `type`)' . ' VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )');
+		$queryActivity = \OC::$server->getDatabaseConnection()->prepare('INSERT INTO `*PREFIX*activity`(`app`, `subject`, `subjectparams`, `message`, `messageparams`, `file`, `link`, `user`, `affecteduser`, `timestamp`, `priority`, `type`)' . ' VALUES(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )');
 		foreach ($activities as $activity) {
 			$queryActivity->execute([
 				'app',
@@ -78,7 +73,7 @@ class DataDeleteActivitiesTest extends TestCase {
 		}
 		$this->data = new Data(
 			$this->createMock(IManager::class),
-			Server::get(IDBConnection::class),
+			\OC::$server->getDatabaseConnection(),
 			$this->createMock(LoggerInterface::class),
 			$this->createMock(IConfig::class),
 		);
@@ -92,7 +87,7 @@ class DataDeleteActivitiesTest extends TestCase {
 		parent::tearDown();
 	}
 
-	public static function deleteActivitiesData(): array {
+	public function deleteActivitiesData(): array {
 		return [
 			[['affecteduser' => 'delete'], ['otherUser']],
 			[['affecteduser' => ['delete', '=']], ['otherUser']],
@@ -101,7 +96,9 @@ class DataDeleteActivitiesTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('deleteActivitiesData')]
+	/**
+	 * @dataProvider deleteActivitiesData
+	 */
 	public function testDeleteActivities(array $condition, array $expected): void {
 		$this->assertUserActivities(['delete', 'otherUser']);
 		$this->data->deleteActivities($condition);
@@ -121,13 +118,12 @@ class DataDeleteActivitiesTest extends TestCase {
 		$backgroundjob->setId(1);
 		$this->assertUserActivities(['delete', 'otherUser']);
 		$jobList = $this->createMock(IJobList::class);
-		$backgroundjob->start($jobList);
+		$backgroundjob->execute($jobList);
 		$this->assertUserActivities(['otherUser']);
 	}
 
-	protected function assertUserActivities(array $expected): void {
-		$query = Server::get(IDBConnection::class)
-			->prepare("SELECT `affecteduser` FROM `*PREFIX*activity` WHERE `type` = 'test'");
+	protected function assertUserActivities(array $expected) {
+		$query = \OC::$server->getDatabaseConnection()->prepare("SELECT `affecteduser` FROM `*PREFIX*activity` WHERE `type` = 'test'");
 		$this->assertTableKeys($expected, $query, 'affecteduser');
 	}
 

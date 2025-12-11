@@ -26,17 +26,23 @@ namespace OCA\Activity\Tests\Template;
 
 use OCA\Activity\Tests\TestCase;
 use OCP\AppFramework\Http\TemplateResponse;
-use PHPUnit\Framework\Attributes\DataProvider;
 
 class RssTest extends TestCase {
-	public static function dataEmpty(): array {
+	public function dataEmpty(): array {
 		return [
 			['de', 'http://localhost', 'title', 'description', 'Fri, 28 Aug 2015 11:47:14 +0000'],
 			['en', 'http://nextcloud.org', 'The title', 'Desc', 'Fri, 28 Aug 2015 11:47:15 +0000'],
 		];
 	}
 
-	#[DataProvider('dataEmpty')]
+	/**
+	 * @dataProvider dataEmpty
+	 *
+	 * @param string $language
+	 * @param string $link
+	 * @param string $description
+	 * @param string $timeDate
+	 */
 	public function testEmpty(string $language, string $link, string $title, string $description, string $timeDate): void {
 		$template = new TemplateResponse('activity', 'rss', [
 			'rssLang' => $language,
@@ -64,7 +70,7 @@ class RssTest extends TestCase {
 		);
 	}
 
-	public static function dataContent(): array {
+	public function dataContent(): array {
 		return [
 			[[], ''],
 			[
@@ -101,7 +107,12 @@ class RssTest extends TestCase {
 		];
 	}
 
-	#[DataProvider('dataContent')]
+	/**
+	 * @dataProvider dataContent
+	 *
+	 * @param array $activities
+	 * @param string $expected
+	 */
 	public function testContent(array $activities, string $expected): void {
 		$template = new TemplateResponse('activity', 'rss', [
 			'rssLang' => 'en',

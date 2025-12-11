@@ -25,35 +25,62 @@ namespace OCA\Activity\Tests\Mock;
 
 use OCP\Activity\ISetting;
 
-/**
- * @since 11.0.0
- */
 class Setting2 implements ISetting {
-	public function getIdentifier(): string {
+	/**
+	 * @return string Lowercase a-z and underscore only identifier
+	 * @since 11.0.0
+	 */
+	public function getIdentifier() {
 		return 'type2';
 	}
 
-	public function getName(): string {
+	/**
+	 * @return string A translated string
+	 * @since 11.0.0
+	 */
+	public function getName() {
 		return 'type2';
 	}
 
-	public function getPriority(): int {
+	/**
+	 * @return int whether the filter should be rather on the top or bottom of
+	 *             the admin section. The filters are arranged in ascending order of the
+	 *             priority values. It is required to return a value between 0 and 100.
+	 * @since 11.0.0
+	 */
+	public function getPriority() {
 		return 100;
 	}
 
-	public function canChangeStream(): bool {
+	/**
+	 * @return bool True when the option can be changed for the stream
+	 * @since 11.0.0
+	 */
+	public function canChangeStream() {
 		return false;
 	}
 
-	public function isDefaultEnabledStream(): bool {
+	/**
+	 * @return bool True when the option can be changed for the stream
+	 * @since 11.0.0
+	 */
+	public function isDefaultEnabledStream() {
 		return true;
 	}
 
-	public function canChangeMail(): bool {
+	/**
+	 * @return bool True when the option can be changed for the mail
+	 * @since 11.0.0
+	 */
+	public function canChangeMail() {
 		return false;
 	}
 
-	public function isDefaultEnabledMail(): bool {
+	/**
+	 * @return bool True when the option can be changed for the stream
+	 * @since 11.0.0
+	 */
+	public function isDefaultEnabledMail() {
 		return true;
 	}
 }

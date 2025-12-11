@@ -37,23 +37,39 @@ use OCP\IRequest;
 use OCP\IURLGenerator;
 use OCP\IUser;
 use OCP\IUserSession;
-use OCP\L10N\IFactory;
-use OCP\Server;
 use OCP\Util;
-use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\MockObject\MockObject;
-use UnexpectedValueException;
 
 class FeedControllerTest extends TestCase {
-	protected IConfig&MockObject $config;
-	protected MockObject&IRequest $request;
-	protected Data&MockObject $data;
-	protected GroupHelper&MockObject $helper;
-	protected UserSettings&MockObject $userSettings;
-	protected IManager&MockObject $manager;
-	protected IUserSession&MockObject $session;
-	protected ThemingDefaults&MockObject $themingDefault;
-	protected FeedController $controller;
+	/** @var IConfig|MockObject */
+	protected $config;
+
+	/** @var IRequest|MockObject */
+	protected $request;
+
+	/** @var Data|MockObject */
+	protected $data;
+
+	/** @var GroupHelper|MockObject */
+	protected $helper;
+
+	/** @var UserSettings|MockObject */
+	protected $userSettings;
+
+	/** @var IManager|MockObject */
+	protected $manager;
+
+	/** @var IUserSession|MockObject */
+	protected $session;
+
+	/** @var \OCP\IL10N */
+	protected $l10n;
+
+	/** @var ThemingDefaults|MockObject */
+	protected $themingDefault;
+
+	/** @var FeedController */
+	protected $controller;
 
 	protected function setUp(): void {
 		parent::setUp();
@@ -61,12 +77,14 @@ class FeedControllerTest extends TestCase {
 		$this->data = $this->createMock(Data::class);
 		$this->helper = $this->createMock(GroupHelper::class);
 		$this->userSettings = $this->createMock(UserSettings::class);
+
 		$this->config = $this->createMock(IConfig::class);
 		$this->request = $this->createMock(IRequest::class);
 		$this->session = $this->createMock(IUserSession::class);
 		$this->manager = $this->createMock(IManager::class);
 		$this->themingDefault = $this->createMock(ThemingDefaults::class);
-		/** @var IURLGenerator&MockObject $urlGenerator */
+
+		/** @var IURLGenerator|MockObject $urlGenerator */
 		$urlGenerator = $this->createMock(IURLGenerator::class);
 
 		$this->controller = new FeedController(
@@ -77,28 +95,33 @@ class FeedControllerTest extends TestCase {
 			$this->userSettings,
 			$urlGenerator,
 			$this->manager,
-			Server::get(IFactory::class),
+			\OC::$server->getL10NFactory(),
 			$this->config,
 			$this->themingDefault,
 		);
 	}
 
 
-	public static function showData(): array {
+	public function showData(): array {
 		return [
 			['application/rss+xml', 'application/rss+xml'],
 			[null, 'text/xml; charset=UTF-8'],
 		];
 	}
 
-	#[DataProvider('showData')]
+	/**
+	 * @dataProvider showData
+	 *
+	 * @param string $acceptHeader
+	 * @param string $expectedHeader
+	 */
 	public function testShow(?string $acceptHeader, string $expectedHeader): void {
 		$this->mockUserSession('test');
-		$this->data
+		$this->data->expects($this->any())
 			->method('get')
 			->willReturn(['data' => []]);
 		if ($acceptHeader !== null) {
-			$this->request
+			$this->request->expects($this->any())
 				->method('getHeader')
 				->willReturn($acceptHeader);
 		}
@@ -118,13 +141,18 @@ class FeedControllerTest extends TestCase {
 		$this->assertStringNotContainsString($description, $renderedResponse);
 	}
 
-	#[DataProvider('showData')]
+	/**
+	 * @dataProvider showData
+	 *
+	 * @param string $acceptHeader
+	 * @param string $expectedHeader
+	 */
 	public function testShowNoToken(?string $acceptHeader, string $expectedHeader): void {
-		$this->manager
+		$this->manager->expects($this->any())
 			->method('getCurrentUserId')
-			->willThrowException(new UnexpectedValueException());
+			->willThrowException(new \UnexpectedValueException());
 		if ($acceptHeader !== null) {
-			$this->request
+			$this->request->expects($this->any())
 				->method('getHeader')
 				->willReturn($acceptHeader);
 		}
@@ -140,23 +168,23 @@ class FeedControllerTest extends TestCase {
 		$this->assertNotEmpty($renderedResponse);
 
 		$l = Util::getL10N('activity');
-		$description = $l->t('Your feed URL is invalid');
+		$description = (string)$l->t('Your feed URL is invalid');
 		$this->assertStringContainsString($description, $renderedResponse);
 	}
 
 	protected function mockUserSession(string $user): void {
 		$mockUser = $this->createMock(IUser::class);
-		$mockUser
+		$mockUser->expects($this->any())
 			->method('getUID')
 			->willReturn($user);
 
-		$this->session
+		$this->session->expects($this->any())
 			->method('isLoggedIn')
 			->willReturn(true);
-		$this->session
+		$this->session->expects($this->any())
 			->method('getUser')
 			->willReturn($mockUser);
-		$this->manager
+		$this->manager->expects($this->any())
 			->method('getCurrentUserId')
 			->willReturn($user);
 	}
