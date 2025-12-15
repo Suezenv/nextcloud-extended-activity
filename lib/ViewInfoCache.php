@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;

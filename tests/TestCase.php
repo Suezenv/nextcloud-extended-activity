@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
 abstract class TestCase extends \Test\TestCase {
 }

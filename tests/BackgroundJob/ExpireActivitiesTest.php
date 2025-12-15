@@ -22,12 +22,12 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\BackgroundJob;
+namespace OCA\ExtendedActivity\Tests\BackgroundJob;
 
 use OC\BackgroundJob\JobList;
-use OCA\Activity\BackgroundJob\ExpireActivities;
-use OCA\Activity\Data;
-use OCA\Activity\Tests\TestCase;
+use OCA\ExtendedActivity\BackgroundJob\ExpireActivities;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\Tests\TestCase;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 use OCP\IConfig;
@@ -36,7 +36,7 @@ use OCP\IConfig;
  * Class ExpireActivitiesTest
  *
  * @group DB
- * @package OCA\Activity\Tests\BackgroundJob
+ * @package OCA\ExtendedActivity\Tests\BackgroundJob
  */
 class ExpireActivitiesTest extends TestCase {
 	public function testExecute(): void {

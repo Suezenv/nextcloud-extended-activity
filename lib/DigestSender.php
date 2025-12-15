@@ -6,7 +6,7 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;

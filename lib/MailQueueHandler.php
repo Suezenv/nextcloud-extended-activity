@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
@@ -29,7 +29,7 @@ use Psr\Log\LoggerInterface;
  * Class MailQueueHandler
  * Gets the users from the database and
  *
- * @package OCA\Activity
+ * @package OCA\ExtendedActivity
  */
 class MailQueueHandler {
 	public const CLI_EMAIL_BATCH_SIZE = 500;
@@ -96,7 +96,7 @@ class MailQueueHandler {
 			if (empty($email)) {
 				// The user did not setup an email address
 				// So we will not send an email :(
-				$this->logger->debug("Couldn't send notification email to user '{user}' (email address isn't set for that user)", ['user' => $user, 'app' => 'activity']);
+				$this->logger->debug("Couldn't send notification email to user '{user}' (email address isn't set for that user)", ['user' => $user, 'app' => 'extended_activity']);
 				$deleteItemsForUsers[] = $user;
 				continue;
 			}
@@ -107,13 +107,13 @@ class MailQueueHandler {
 				if ($this->sendEmailToUser($user, $email, $language, $timezone, $sendTime)) {
 					$deleteItemsForUsers[] = $user;
 				} else {
-					$this->logger->warning("Failed sending activity email to user '{user}'.", ['user' => $user, 'app' => 'activity']);
+					$this->logger->warning("Failed sending activity email to user '{user}'.", ['user' => $user, 'app' => 'extended_activity']);
 				}
 			} catch (\Exception $e) {
 				$this->logger->error('Failed creating activity email for user "{user}"', [
 					'exception' => $e,
 					'user' => $user,
-					'app' => 'activity',
+					'app' => 'extended_activity',
 				]);
 				// continue;
 			}
@@ -362,7 +362,7 @@ class MailQueueHandler {
 			$this->logger->error('Failed sending activity email to user "{user}"', [
 				'exception' => $e,
 				'user' => $userName,
-				'app' => 'activity',
+				'app' => 'extended_activity',
 			]);
 			return false;
 		}

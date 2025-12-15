@@ -22,15 +22,15 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OC\Files\Config\CachedMountFileInfo;
 use OC\Files\View;
 use OC\TagManager;
 use OC\Tags;
-use OCA\Activity\Extension\Files;
-use OCA\Activity\Extension\Files_Sharing;
-use OCA\Activity\Tests\TestCase;
+use OCA\ExtendedActivity\Extension\Files;
+use OCA\ExtendedActivity\Extension\Files_Sharing;
+use OCA\ExtendedActivity\Tests\TestCase;
 use OCA\Files_Sharing\SharedMount;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
@@ -56,7 +56,7 @@ use Psr\Log\LoggerInterface;
  * Testing the public methods with internals being mocked out
  *
  * @group DB
- * @package OCA\Activity
+ * @package OCA\ExtendedActivity
  */
 class FilesHooksTest extends TestCase {
 	protected FilesHooks $filesHooks;

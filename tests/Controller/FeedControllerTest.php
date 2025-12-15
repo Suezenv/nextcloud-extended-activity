@@ -22,13 +22,13 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Controller;
+namespace OCA\ExtendedActivity\Tests\Controller;
 
-use OCA\Activity\Controller\FeedController;
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\Tests\TestCase;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\Controller\FeedController;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\Tests\TestCase;
+use OCA\ExtendedActivity\UserSettings;
 use OCA\Theming\ThemingDefaults;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http\TemplateResponse;

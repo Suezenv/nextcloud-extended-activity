@@ -42,7 +42,7 @@ export default {
 	},
 
 	mounted() {
-		this.setEndpoint({ endpoint: '/apps/activity/settings/admin' })
+		this.setEndpoint({ endpoint: '/apps/extended_activity/settings/admin' })
 	},
 
 	methods: {

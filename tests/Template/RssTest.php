@@ -22,9 +22,9 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Template;
+namespace OCA\ExtendedActivity\Tests\Template;
 
-use OCA\Activity\Tests\TestCase;
+use OCA\ExtendedActivity\Tests\TestCase;
 use OCP\AppFramework\Http\TemplateResponse;
 
 class RssTest extends TestCase {

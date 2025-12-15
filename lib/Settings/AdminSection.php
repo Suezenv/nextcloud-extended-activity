@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Settings;
+namespace OCA\ExtendedActivity\Settings;
 
 use OCP\IL10N;
 use OCP\IURLGenerator;

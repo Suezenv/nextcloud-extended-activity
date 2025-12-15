@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Settings;
+namespace OCA\ExtendedActivity\Settings;
 
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Activity\ActivitySettings;
 use OCP\Activity\IExtension;
 use OCP\Activity\IManager;

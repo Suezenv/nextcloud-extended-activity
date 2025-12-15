@@ -4,7 +4,7 @@
   - SPDX-License-Identifier: AGPL-3.0-or-later
 -->
 <info xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://apps.nextcloud.com/schema/apps/info.xsd">
-	<id>~extended_activity</id>
+	<id>extended_activity</id>
 	<name>Extended Activity</name>
 	<summary>This application enables people to view a log of activities about them, their files or other data.</summary>
 	<description>
@@ -20,6 +20,8 @@
 	<author>Frank Karlitschek</author>
 	<author>Joas Schilling</author>
 	<author>Ferdinand Thiessen</author>
+
+	<namespace>ExtendedActivity</namespace>
 
 	<types>
 		<filesystem />
@@ -41,35 +43,35 @@
 	</dependencies>
 
 	<background-jobs>
-		<job>OCA\Activity\BackgroundJob\EmailNotification</job>
-		<job>OCA\Activity\BackgroundJob\ExpireActivities</job>
-		<job>OCA\Activity\BackgroundJob\DigestMail</job>
-		<job>OCA\Activity\BackgroundJob\RemoveFormerActivitySettings</job>
+		<job>OCA\ExtendedActivity\BackgroundJob\EmailNotification</job>
+		<job>OCA\ExtendedActivity\BackgroundJob\ExpireActivities</job>
+		<job>OCA\ExtendedActivity\BackgroundJob\DigestMail</job>
+		<job>OCA\ExtendedActivity\BackgroundJob\RemoveFormerActivitySettings</job>
 	</background-jobs>
 
 	<commands>
-		<command>OCA\Activity\Command\SendEmails</command>
+		<command>OCA\ExtendedActivity\Command\SendEmails</command>
 	</commands>
 
 	<settings>
-		<admin>OCA\Activity\Settings\Admin</admin>
-		<admin-section>OCA\Activity\Settings\AdminSection</admin-section>
-		<personal>OCA\Activity\Settings\Personal</personal>
-		<personal-section>OCA\Activity\Settings\PersonalSection</personal-section>
+		<admin>OCA\ExtendedActivity\Settings\Admin</admin>
+		<admin-section>OCA\ExtendedActivity\Settings\AdminSection</admin-section>
+		<personal>OCA\ExtendedActivity\Settings\Personal</personal>
+		<personal-section>OCA\ExtendedActivity\Settings\PersonalSection</personal-section>
 	</settings>
 
 	<activity>
 		<filters>
-			<filter>OCA\Activity\Filter\AllFilter</filter>
-			<filter>OCA\Activity\Filter\SelfFilter</filter>
-			<filter>OCA\Activity\Filter\ByFilter</filter>
+			<filter>OCA\ExtendedActivity\Filter\AllFilter</filter>
+			<filter>OCA\ExtendedActivity\Filter\SelfFilter</filter>
+			<filter>OCA\ExtendedActivity\Filter\ByFilter</filter>
 		</filters>
 	</activity>
 
 	<navigations>
 		<navigation>
-			<name>Activity</name>
-			<route>activity.Activities.index</route>
+			<name>ExtendedActivity</name>
+			<route>extended_activity.Activities.index</route>
 			<icon>activity.svg</icon>
 			<order>1</order>
 		</navigation>

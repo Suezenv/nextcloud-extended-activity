@@ -6,9 +6,9 @@ declare(strict_types=1);
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\BackgroundJob;
+namespace OCA\ExtendedActivity\BackgroundJob;
 
-use OCA\Activity\Data;
+use OCA\ExtendedActivity\Data;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\TimedJob;
 use OCP\IConfig;

@@ -3,7 +3,7 @@
  * SPDX-FileCopyrightText: 2022 Nextcloud GmbH and Nextcloud contributors
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
-\OCP\Util::addScript('activity', 'activity-personalSettings');
+\OCP\Util::addScript('extended_activity', 'extended_activity-personalSettings');
 ?>
 
 <div id="activity-user-settings"></div>

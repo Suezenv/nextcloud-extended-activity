@@ -21,9 +21,9 @@
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\ViewInfoCache;
+use OCA\ExtendedActivity\ViewInfoCache;
 use OCP\Files\File;
 use OCP\Files\Folder;
 use OCP\Files\IRootFolder;

@@ -6,10 +6,10 @@ declare(strict_types=1);
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use Doctrine\DBAL\Platforms\MySQLPlatform;
-use OCA\Activity\Filter\AllFilter;
+use OCA\ExtendedActivity\Filter\AllFilter;
 use OCP\Activity\Exceptions\FilterNotFoundException;
 use OCP\Activity\IEvent;
 use OCP\Activity\IExtension;
@@ -430,11 +430,11 @@ class Data {
 	public function deleteActivities($conditions): void {
 		$platform = $this->connection->getDatabasePlatform();
 		if ($platform instanceof MySQLPlatform) {
-			$this->logger->debug('Choosing chunked activity delete for MySQL/MariaDB', ['app' => 'activity']);
+			$this->logger->debug('Choosing chunked activity delete for MySQL/MariaDB', ['app' => 'extended_activity']);
 			$this->deleteActivitiesForMySQL($conditions);
 			return;
 		}
-		$this->logger->debug('Choosing regular activity delete', ['app' => 'activity']);
+		$this->logger->debug('Choosing regular activity delete', ['app' => 'extended_activity']);
 		$deleteQuery = $this->connection->getQueryBuilder();
 		$deleteQuery->delete('activity');
 

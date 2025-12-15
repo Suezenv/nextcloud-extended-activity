@@ -23,9 +23,9 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\Capabilities;
+use OCA\ExtendedActivity\Capabilities;
 
 class CapabilitiesTest extends TestCase {
 	public function testGetCapabilities(): void {

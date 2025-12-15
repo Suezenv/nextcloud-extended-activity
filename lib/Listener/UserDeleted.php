@@ -6,10 +6,10 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Listener;
+namespace OCA\ExtendedActivity\Listener;
 
-use OCA\Activity\Data;
-use OCA\Activity\MailQueueHandler;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\MailQueueHandler;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\IUser;

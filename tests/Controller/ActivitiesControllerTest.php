@@ -21,11 +21,11 @@
  *
  */
 
-namespace OCA\Activity\Tests\Controller;
+namespace OCA\ExtendedActivity\Tests\Controller;
 
-use OCA\Activity\Controller\ActivitiesController;
-use OCA\Activity\Data;
-use OCA\Activity\Tests\TestCase;
+use OCA\ExtendedActivity\Controller\ActivitiesController;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\Tests\TestCase;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http\TemplateResponse;
 use OCP\AppFramework\Services\IInitialState;
@@ -41,7 +41,7 @@ use PHPUnit\Framework\MockObject\MockObject;
  * Class ActivitiesTest
  *
  * @group DB
- * @package OCA\Activity\Tests\Controller
+ * @package OCA\ExtendedActivity\Tests\Controller
  */
 class ActivitiesControllerTest extends TestCase {
 	/** @var IRequest|MockObject */
@@ -121,7 +121,7 @@ class ActivitiesControllerTest extends TestCase {
 
 		$this->eventDispatcher->expects($this->once())
 			->method('dispatch')
-			->with('OCA\Activity::loadAdditionalScripts', $this->anything());
+			->with('OCA\ExtendedActivity::loadAdditionalScripts', $this->anything());
 
 		$this->data->expects($this->any())
 			->method('validateFilter')

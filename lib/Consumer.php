@@ -5,7 +5,7 @@
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OCP\Activity\ActivitySettings;
 use OCP\Activity\IBulkConsumer;

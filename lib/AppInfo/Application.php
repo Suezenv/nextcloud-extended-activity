@@ -5,24 +5,24 @@
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\AppInfo;
+namespace OCA\ExtendedActivity\AppInfo;
 
 use OC\DB\ConnectionAdapter;
 use OC\Files\View;
 use OC\SystemConfig;
-use OCA\Activity\Capabilities;
-use OCA\Activity\Consumer;
-use OCA\Activity\Dashboard\ActivityWidget;
-use OCA\Activity\Data;
-use OCA\Activity\FilesHooksStatic;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\Listener\LoadSidebarScripts;
-use OCA\Activity\Listener\SetUserDefaults;
-use OCA\Activity\Listener\ShareEventListener;
-use OCA\Activity\Listener\UserDeleted;
-use OCA\Activity\MailQueueHandler;
-use OCA\Activity\NotificationGenerator;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\Capabilities;
+use OCA\ExtendedActivity\Consumer;
+use OCA\ExtendedActivity\Dashboard\ActivityWidget;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\FilesHooksStatic;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\Listener\LoadSidebarScripts;
+use OCA\ExtendedActivity\Listener\SetUserDefaults;
+use OCA\ExtendedActivity\Listener\ShareEventListener;
+use OCA\ExtendedActivity\Listener\UserDeleted;
+use OCA\ExtendedActivity\MailQueueHandler;
+use OCA\ExtendedActivity\NotificationGenerator;
+use OCA\ExtendedActivity\UserSettings;
 use OCA\Files\Event\LoadSidebar;
 use OCP\Activity\IManager;
 use OCP\AppFramework\App;
@@ -47,7 +47,7 @@ use Psr\Container\ContainerInterface;
 use Psr\Log\LoggerInterface;
 
 class Application extends App implements IBootstrap {
-	public const APP_ID = 'activity';
+	public const APP_ID = 'extended_activity';
 
 	public function __construct(array $params = []) {
 		parent::__construct(self::APP_ID, $params);

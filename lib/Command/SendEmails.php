@@ -5,11 +5,11 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Command;
+namespace OCA\ExtendedActivity\Command;
 
 use OC\Core\Command\Base;
-use OCA\Activity\MailQueueHandler;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\MailQueueHandler;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\IConfig;
 use Psr\Log\LoggerInterface;
 use Stecman\Component\Symfony\Console\BashCompletion\CompletionContext;

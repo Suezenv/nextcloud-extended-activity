@@ -20,9 +20,9 @@
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\CurrentUser;
+use OCA\ExtendedActivity\CurrentUser;
 use OCP\IRequest;
 use OCP\IUser;
 use OCP\IUserSession;
@@ -40,7 +40,7 @@ abstract class RequestMock implements IRequest {
 /**
  * Class CurrentUserTest
  *
- * @package OCA\Activity\Tests
+ * @package OCA\ExtendedActivity\Tests
  */
 class CurrentUserTest extends TestCase {
 	protected IRequest&MockObject $request;

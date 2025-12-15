@@ -6,7 +6,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 /**
  * The class to handle the filesystem hooks

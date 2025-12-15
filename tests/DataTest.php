@@ -22,9 +22,9 @@
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\Data;
+use OCA\ExtendedActivity\Data;
 use OCP\Activity\IManager;
 use OCP\DB\QueryBuilder\IQueryBuilder;
 use OCP\IConfig;
@@ -39,7 +39,7 @@ use Psr\Log\NullLogger;
  * Class DataTest
  *
  * @group DB
- * @package OCA\Activity\Tests
+ * @package OCA\ExtendedActivity\Tests
  */
 class DataTest extends TestCase {
 	/** @var Data */

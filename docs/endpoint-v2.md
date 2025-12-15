@@ -23,19 +23,19 @@ GET /ocs/v2.php/cloud/capabilities
 ## Request URL
 
 ```
-GET /ocs/v2.php/apps/activity/api/v2/activity
+GET /ocs/v2.php/apps/extended_activity/api/v2/activity
 ```
 
 With type filter
 
 ```
-GET /ocs/v2.php/apps/activity/api/v2/activity/{filter}
+GET /ocs/v2.php/apps/extended_activity/api/v2/activity/{filter}
 ```
 
 Supported type filters can be obtained from:
 
 ```
-GET /ocs/v2.php/apps/activity/api/v2/activity/filters
+GET /ocs/v2.php/apps/extended_activity/api/v2/activity/filters
 ```
 
 Additionally, filtering based on `object_type` and `object_id` (see below) is only valid when supplying `filter` as the type filter.  Filtering results based on `object_type` and `object_id` parameters is not supported when using any other type filter.
@@ -68,7 +68,7 @@ Status Code | Description
 
 Already includes all parameters
 ```
-Link: <http(s)://localhost/ocs/v2.php/apps/activity/api/v2/activity/all?since=364>; rel="next"
+Link: <http(s)://localhost/ocs/v2.php/apps/extended_activity/api/v2/activity/all?since=364>; rel="next"
 ```
 
 ### First known activity

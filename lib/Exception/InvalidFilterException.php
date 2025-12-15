@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity\Exception;
+namespace OCA\ExtendedActivity\Exception;
 
 class InvalidFilterException extends \InvalidArgumentException {
 }

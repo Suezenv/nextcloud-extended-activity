@@ -21,18 +21,18 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Controller;
+namespace OCA\ExtendedActivity\Tests\Controller;
 
 use OC\Activity\Manager;
-use OCA\Activity\Controller\APIv1Controller;
-use OCA\Activity\CurrentUser;
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\Tests\Mock\Provider;
-use OCA\Activity\Tests\Mock\Setting1;
-use OCA\Activity\Tests\Mock\Setting2;
-use OCA\Activity\Tests\TestCase;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\Controller\APIv1Controller;
+use OCA\ExtendedActivity\CurrentUser;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\Tests\Mock\Provider;
+use OCA\ExtendedActivity\Tests\Mock\Setting1;
+use OCA\ExtendedActivity\Tests\Mock\Setting2;
+use OCA\ExtendedActivity\Tests\TestCase;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Activity\IExtension;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -47,7 +47,7 @@ use Psr\Log\LoggerInterface;
  * Class APIv1Test
  *
  * @group DB
- * @package OCA\Activity\Tests\Controller
+ * @package OCA\ExtendedActivity\Tests\Controller
  */
 class APIv1ControllerTest extends TestCase {
 	protected $originalWEBROOT;

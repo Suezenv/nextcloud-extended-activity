@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Controller;
+namespace OCA\ExtendedActivity\Controller;
 
-use OCA\Activity\Extension\Files;
+use OCA\ExtendedActivity\Extension\Files;
 use OCP\Activity\IManager as IActivityManager;
 use OCP\App\IAppManager;
 use OCP\AppFramework\Http;

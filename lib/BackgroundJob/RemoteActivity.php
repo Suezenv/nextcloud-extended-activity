@@ -5,10 +5,10 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\BackgroundJob;
+namespace OCA\ExtendedActivity\BackgroundJob;
 
 use GuzzleHttp\Exception\ClientException;
-use OCA\Activity\Extension\Files;
+use OCA\ExtendedActivity\Extension\Files;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\QueuedJob;
 use OCP\Federation\ICloudId;
@@ -88,7 +88,7 @@ class RemoteActivity extends QueuedJob {
 			$remote = 'https://' . $remote;
 		}
 
-		return rtrim($remote, '/') . '/ocs/v2.php/apps/activity/api/v2/remote/' . $token;
+		return rtrim($remote, '/') . '/ocs/v2.php/apps/extended_activity/api/v2/remote/' . $token;
 	}
 
 	/**

@@ -6,7 +6,7 @@
 <template>
 	<div
 		:class="{ 'icon-loading': loading }"
-		class="activity">
+		class="extended_activity">
 		<!-- error message -->
 		<NcEmptyContent v-if="error || fileInfo === null" :name="error">
 			<template #icon>
@@ -15,7 +15,7 @@
 		</NcEmptyContent>
 		<template v-else>
 			<!-- activities actions -->
-			<div v-if="sidebarPlugins.length > 0" class="activity__actions">
+			<div v-if="sidebarPlugins.length > 0" class="extended_activity__actions">
 				<ActivitySidebarPlugin
 					v-for="plugin, index of sidebarPlugins"
 					:key="index"
@@ -27,7 +27,7 @@
 			<!-- activities content -->
 			<NcEmptyContent
 				v-if="loading"
-				class="activity__empty-content"
+				class="extended_activity__empty-content"
 				:name="t('activity', 'Loading activities')">
 				<template #icon>
 					<NcLoadingIcon />
@@ -35,13 +35,13 @@
 			</NcEmptyContent>
 			<NcEmptyContent
 				v-else-if="activities.length === 0"
-				class="activity__empty-content"
+				class="extended_activity__empty-content"
 				:name="t('activity', 'No activity yet')">
 				<template #icon>
 					<span class="icon-activity" />
 				</template>
 			</NcEmptyContent>
-			<ul v-else class="activity__list">
+			<ul v-else class="extended_activity__list">
 				<ActivityComponent
 					v-for="activity in activities"
 					:key="activity.id"
@@ -150,7 +150,7 @@ const ActivityTab = defineComponent({
 		async loadRealActivities() {
 			try {
 				const { data } = await axios.get(
-					generateOcsUrl('apps/activity/api/v2/activity/filter'),
+					generateOcsUrl('apps/extended_activity/api/v2/activity/filter'),
 					{
 						params: {
 							format: 'json',

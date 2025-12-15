@@ -103,7 +103,7 @@ const hasRSSLink = computed(() => !!rssLink.value)
  */
 async function toggleRSSLink() {
 	try {
-		const { data } = await axios.post<{ data: { rsslink: string } }>(generateUrl('/apps/activity/settings/feed'), {
+		const { data } = await axios.post<{ data: { rsslink: string } }>(generateUrl('/apps/extended_activity/settings/feed'), {
 			enable: !hasRSSLink.value,
 		})
 		rssLink.value = data.data.rsslink

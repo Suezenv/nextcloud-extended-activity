@@ -10,7 +10,7 @@ const axios = {
 	 */
 	get(url) {
 		return new Promise((resolve, reject) => {
-			if (url.endsWith('/ocs/v2.php/apps/activity/api/v2/activity/filter')) {
+			if (url.endsWith('/ocs/v2.php/apps/extended_activity/api/v2/activity/filter')) {
 				resolve({ data: wsData })
 			} else {
 				reject(new Error(`URL not defined ${url}`))

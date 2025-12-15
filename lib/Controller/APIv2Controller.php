@@ -6,13 +6,13 @@ declare(strict_types=1);
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\Controller;
+namespace OCA\ExtendedActivity\Controller;
 
-use OCA\Activity\Data;
-use OCA\Activity\Exception\InvalidFilterException;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\UserSettings;
-use OCA\Activity\ViewInfoCache;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\Exception\InvalidFilterException;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\UserSettings;
+use OCA\ExtendedActivity\ViewInfoCache;
 use OCP\Activity\IFilter;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
@@ -263,7 +263,7 @@ class APIv2Controller extends OCSController {
 			$nextPage = $this->request->getServerProtocol(); # http
 			$nextPage .= '://' . $this->request->getServerHost(); # localhost
 			$nextPage .= $this->request->getScriptName(); # /ocs/v2.php
-			$nextPage .= $this->request->getPathInfo(); # /apps/activity/api/v2/activity
+			$nextPage .= $this->request->getPathInfo(); # /apps/extended_activity/api/v2/activity
 			$nextPage .= '?' . http_build_query($nextPageParameters);
 			$headers['Link'] = '<' . $nextPage . '>; rel="next"';
 		}

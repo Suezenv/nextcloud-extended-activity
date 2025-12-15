@@ -5,10 +5,10 @@
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\Controller;
+namespace OCA\ExtendedActivity\Controller;
 
-use OCA\Activity\Data;
-use OCA\Activity\Event\LoadAdditionalScriptsEvent;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\Event\LoadAdditionalScriptsEvent;
 use OCA\Viewer\Event\LoadViewer;
 use OCP\Activity\IFilter;
 use OCP\Activity\IManager;
@@ -76,7 +76,7 @@ class ActivitiesController extends Controller {
 		$this->initialState->provideInitialState('filter', $filter);
 		$this->initialState->provideInitialState('navigationList', $this->getLinkList());
 
-		\OCP\Util::addScript($this->appName, 'activity-app');
+		\OCP\Util::addScript($this->appName, 'extended_activity-app');
 		\OCP\Util::addStyle($this->appName, 'style');
 
 		return new TemplateResponse($this->appName, 'app-main');

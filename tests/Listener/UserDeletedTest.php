@@ -22,11 +22,11 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Listener;
+namespace OCA\ExtendedActivity\Tests\Listener;
 
-use OCA\Activity\Data;
-use OCA\Activity\Listener\UserDeleted;
-use OCA\Activity\MailQueueHandler;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\Listener\UserDeleted;
+use OCA\ExtendedActivity\MailQueueHandler;
 use OCP\IUser;
 use OCP\User\Events\UserDeletedEvent;
 use PHPUnit\Framework\MockObject\MockObject;

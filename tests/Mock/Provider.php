@@ -21,7 +21,7 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Mock;
+namespace OCA\ExtendedActivity\Tests\Mock;
 
 use OCP\Activity\IEvent;
 use OCP\Activity\IProvider;

@@ -5,16 +5,16 @@
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\BackgroundJob;
+namespace OCA\ExtendedActivity\BackgroundJob;
 
-use OCA\Activity\MailQueueHandler;
+use OCA\ExtendedActivity\MailQueueHandler;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\TimedJob;
 
 /**
  * Class EmailNotification
  *
- * @package OCA\Activity\BackgroundJob
+ * @package OCA\ExtendedActivity\BackgroundJob
  */
 class EmailNotification extends TimedJob {
 

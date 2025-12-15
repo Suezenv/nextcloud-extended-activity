@@ -5,12 +5,12 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Controller;
+namespace OCA\ExtendedActivity\Controller;
 
-use OCA\Activity\CurrentUser;
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\CurrentUser;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\AppFramework\Http\DataResponse;
 use OCP\AppFramework\OCSController;
 use OCP\IDBConnection;

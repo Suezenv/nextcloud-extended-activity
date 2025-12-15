@@ -23,7 +23,7 @@ export function closeSidebar() {
 }
 
 export function showActivityTab(fileName: string) {
-	cy.intercept('GET', '/ocs/v2.php/apps/activity/api/v2/activity/filter**').as('getActivities')
+	cy.intercept('GET', '/ocs/v2.php/apps/extended_activity/api/v2/activity/filter**').as('getActivities')
 
 	showSidebarForFile(fileName)
 

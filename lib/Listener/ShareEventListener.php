@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity\Listener;
+namespace OCA\ExtendedActivity\Listener;
 
-use OCA\Activity\FilesHooks;
+use OCA\ExtendedActivity\FilesHooks;
 use OCP\EventDispatcher\Event;
 use OCP\EventDispatcher\IEventListener;
 use OCP\Share\Events\BeforeShareDeletedEvent;

@@ -6,12 +6,12 @@ declare(strict_types=1);
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Dashboard;
+namespace OCA\ExtendedActivity\Dashboard;
 
-use OCA\Activity\AppInfo\Application;
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\AppInfo\Application;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Dashboard\IAPIWidget;
 use OCP\Dashboard\IButtonWidget;
 use OCP\Dashboard\IIconWidget;
@@ -105,7 +105,7 @@ class ActivityWidget implements IAPIWidget, IButtonWidget, IIconWidget, IReloada
 	 */
 	#[\Override]
 	public function load(): void {
-		Util::addStyle('activity', 'style');
+		Util::addStyle('extended_activity', 'style');
 	}
 
 	/**

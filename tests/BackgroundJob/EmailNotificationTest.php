@@ -22,11 +22,11 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\BackgroundJob;
+namespace OCA\ExtendedActivity\Tests\BackgroundJob;
 
-use OCA\Activity\BackgroundJob\EmailNotification;
-use OCA\Activity\MailQueueHandler;
-use OCA\Activity\Tests\TestCase;
+use OCA\ExtendedActivity\BackgroundJob\EmailNotification;
+use OCA\ExtendedActivity\MailQueueHandler;
+use OCA\ExtendedActivity\Tests\TestCase;
 use OCP\AppFramework\Utility\ITimeFactory;
 use OCP\BackgroundJob\IJobList;
 
@@ -34,7 +34,7 @@ use OCP\BackgroundJob\IJobList;
  * Class EmailNotificationTest
  *
  * @group DB
- * @package OCA\Activity\Tests\BackgroundJob
+ * @package OCA\ExtendedActivity\Tests\BackgroundJob
  */
 class EmailNotificationTest extends TestCase {
 	public function constructAndRunData(): array {

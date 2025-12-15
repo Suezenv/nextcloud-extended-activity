@@ -21,7 +21,7 @@
  *
  */
 
-namespace OCA\Activity\Tests\Mock;
+namespace OCA\ExtendedActivity\Tests\Mock;
 
 use OCP\Activity\ISetting;
 

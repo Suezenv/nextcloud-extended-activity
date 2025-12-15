@@ -5,10 +5,10 @@
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\Controller;
+namespace OCA\ExtendedActivity\Controller;
 
-use OCA\Activity\CurrentUser;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\CurrentUser;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\Http\DataResponse;

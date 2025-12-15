@@ -22,12 +22,12 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\Consumer;
-use OCA\Activity\Data;
-use OCA\Activity\NotificationGenerator;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\Consumer;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\NotificationGenerator;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Activity\IManager;
 use OCP\IL10N;
 use OCP\L10N\IFactory;
@@ -37,7 +37,7 @@ use PHPUnit\Framework\MockObject\MockObject;
  * Class ConsumerTest
  *
  * @group DB
- * @package OCA\Activity\Tests
+ * @package OCA\ExtendedActivity\Tests
  */
 class ConsumerTest extends TestCase {
 	/** @var Consumer */
@@ -51,7 +51,7 @@ class ConsumerTest extends TestCase {
 	/** @var IManager|MockObject */
 	protected $activityManager;
 
-	/** @var \OCA\Activity\UserSettings */
+	/** @var \OCA\ExtendedActivity\UserSettings */
 	protected $userSettings;
 
 	/** @var NotificationGenerator|MockObject */

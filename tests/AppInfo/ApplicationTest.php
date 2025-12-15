@@ -23,28 +23,28 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\AppInfo;
+namespace OCA\ExtendedActivity\Tests\AppInfo;
 
 use OC\Files\View;
-use OCA\Activity\AppInfo\Application;
-use OCA\Activity\BackgroundJob\EmailNotification;
-use OCA\Activity\BackgroundJob\ExpireActivities;
-use OCA\Activity\Capabilities;
-use OCA\Activity\Consumer;
-use OCA\Activity\Controller\ActivitiesController;
-use OCA\Activity\Controller\APIv1Controller;
-use OCA\Activity\Controller\APIv2Controller;
-use OCA\Activity\Controller\FeedController;
-use OCA\Activity\Controller\SettingsController;
-use OCA\Activity\CurrentUser;
-use OCA\Activity\Data;
-use OCA\Activity\FilesHooks;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\GroupHelperDisabled;
-use OCA\Activity\MailQueueHandler;
-use OCA\Activity\Tests\TestCase;
-use OCA\Activity\UserSettings;
-use OCA\Activity\ViewInfoCache;
+use OCA\ExtendedActivity\AppInfo\Application;
+use OCA\ExtendedActivity\BackgroundJob\EmailNotification;
+use OCA\ExtendedActivity\BackgroundJob\ExpireActivities;
+use OCA\ExtendedActivity\Capabilities;
+use OCA\ExtendedActivity\Consumer;
+use OCA\ExtendedActivity\Controller\ActivitiesController;
+use OCA\ExtendedActivity\Controller\APIv1Controller;
+use OCA\ExtendedActivity\Controller\APIv2Controller;
+use OCA\ExtendedActivity\Controller\FeedController;
+use OCA\ExtendedActivity\Controller\SettingsController;
+use OCA\ExtendedActivity\CurrentUser;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\FilesHooks;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\GroupHelperDisabled;
+use OCA\ExtendedActivity\MailQueueHandler;
+use OCA\ExtendedActivity\Tests\TestCase;
+use OCA\ExtendedActivity\UserSettings;
+use OCA\ExtendedActivity\ViewInfoCache;
 use OCP\Activity\IConsumer;
 use OCP\AppFramework\Controller;
 use OCP\AppFramework\IAppContainer;
@@ -57,7 +57,7 @@ use OCP\IL10N;
  * Class ApplicationTest
  *
  * @group DB
- * @package OCA\Activity\Tests\AppInfo
+ * @package OCA\ExtendedActivity\Tests\AppInfo
  */
 class ApplicationTest extends TestCase {
 	/** @var Application */

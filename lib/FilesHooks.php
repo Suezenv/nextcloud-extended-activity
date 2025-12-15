@@ -6,13 +6,13 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OC\Files\Filesystem;
 use OC\Files\View;
-use OCA\Activity\BackgroundJob\RemoteActivity;
-use OCA\Activity\Extension\Files;
-use OCA\Activity\Extension\Files_Sharing;
+use OCA\ExtendedActivity\BackgroundJob\RemoteActivity;
+use OCA\ExtendedActivity\Extension\Files;
+use OCA\ExtendedActivity\Extension\Files_Sharing;
 use OCA\Circles\CirclesManager;
 use OCA\Circles\Model\Member;
 use OCA\Files_Sharing\SharedMount;
@@ -1169,7 +1169,7 @@ class FilesHooks {
 			$this->logger->error(
 				$e->getMessage(),
 				[
-					'app' => 'activity',
+					'app' => 'extended_activity',
 					'exception' => $e,
 				],
 			);

@@ -22,10 +22,10 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\GroupHelper;
-use OCA\Activity\GroupHelperDisabled;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\GroupHelperDisabled;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
 use OCP\IL10N;

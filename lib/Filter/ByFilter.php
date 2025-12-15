@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity\Filter;
+namespace OCA\ExtendedActivity\Filter;
 
 use OCP\Activity\IFilter;
 use OCP\IL10N;

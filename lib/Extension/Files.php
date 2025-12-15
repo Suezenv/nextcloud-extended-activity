@@ -5,7 +5,7 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity\Extension;
+namespace OCA\ExtendedActivity\Extension;
 
 class Files {
 	public const TYPE_SHARE_CREATED = 'file_created';

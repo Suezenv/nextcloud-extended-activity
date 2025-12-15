@@ -22,10 +22,10 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\BackgroundJob\ExpireActivities;
-use OCA\Activity\Data;
+use OCA\ExtendedActivity\BackgroundJob\ExpireActivities;
+use OCA\ExtendedActivity\Data;
 use OCP\Activity\IExtension;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Utility\ITimeFactory;
@@ -38,7 +38,7 @@ use Psr\Log\LoggerInterface;
  * Class DataDeleteActivitiesTest
  *
  * @group DB
- * @package OCA\Activity\Tests
+ * @package OCA\ExtendedActivity\Tests
  */
 class DataDeleteActivitiesTest extends TestCase {
 	/** @var Data */

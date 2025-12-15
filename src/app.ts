@@ -10,7 +10,7 @@ import ActivityApp from './views/ActivityApp.vue'
 import { routes } from './routes.ts'
 
 const router = createRouter({
-	history: createWebHistory(generateUrl('/apps/activity')),
+	history: createWebHistory(generateUrl('/apps/extended_activity')),
 	linkActiveClass: 'active',
 	routes,
 })

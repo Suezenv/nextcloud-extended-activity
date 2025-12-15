@@ -21,9 +21,9 @@
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Activity\ActivitySettings;
 use OCP\Activity\Exceptions\SettingNotFoundException;
 use OCP\Activity\IManager;

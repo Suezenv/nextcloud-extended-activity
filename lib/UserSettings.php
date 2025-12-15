@@ -5,9 +5,9 @@
  * SPDX-License-Identifier: AGPL-3.0-only
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
-use OCA\Activity\Extension\Files;
+use OCA\ExtendedActivity\Extension\Files;
 use OCP\Activity\ActivitySettings;
 use OCP\Activity\Exceptions\SettingNotFoundException;
 use OCP\Activity\IManager;
@@ -16,7 +16,7 @@ use OCP\IConfig;
 /**
  * Class UserSettings
  *
- * @package OCA\Activity
+ * @package OCA\ExtendedActivity
  */
 class UserSettings {
 

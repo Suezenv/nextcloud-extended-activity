@@ -22,15 +22,15 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Controller;
+namespace OCA\ExtendedActivity\Tests\Controller;
 
-use OCA\Activity\Controller\APIv2Controller;
-use OCA\Activity\Data;
-use OCA\Activity\Exception\InvalidFilterException;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\Tests\TestCase;
-use OCA\Activity\UserSettings;
-use OCA\Activity\ViewInfoCache;
+use OCA\ExtendedActivity\Controller\APIv2Controller;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\Exception\InvalidFilterException;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\Tests\TestCase;
+use OCA\ExtendedActivity\UserSettings;
+use OCA\ExtendedActivity\ViewInfoCache;
 use OCP\Activity\IFilter;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Http;
@@ -48,7 +48,7 @@ use PHPUnit\Framework\MockObject\MockObject;
  * Class APIv2Test
  *
  * @group DB
- * @package OCA\Activity\Tests\Controller
+ * @package OCA\ExtendedActivity\Tests\Controller
  */
 class APIv2ControllerTest extends TestCase {
 	/** @var IRequest|MockObject */

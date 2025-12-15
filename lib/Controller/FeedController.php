@@ -5,11 +5,11 @@
  * SPDX-FileCopyrightText: 2016 ownCloud, Inc.
  * SPDX-License-Identifier: AGPL-3.0-only
  */
-namespace OCA\Activity\Controller;
+namespace OCA\ExtendedActivity\Controller;
 
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\UserSettings;
 use OCA\Theming\ThemingDefaults;
 use OCP\Activity\IManager;
 use OCP\AppFramework\Controller;

@@ -5,14 +5,14 @@
  * SPDX-License-Identifier: AGPL-3.0-or-later
  */
 
-namespace OCA\Activity;
+namespace OCA\ExtendedActivity;
 
 use OCP\Capabilities\ICapability;
 
 /**
  * Class Capabilities
  *
- * @package OCA\Activity
+ * @package OCA\ExtendedActivity
  */
 class Capabilities implements ICapability {
 	/**

@@ -24,13 +24,13 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests;
+namespace OCA\ExtendedActivity\Tests;
 
 use OC\Mail\Message;
-use OCA\Activity\Data;
-use OCA\Activity\GroupHelper;
-use OCA\Activity\MailQueueHandler;
-use OCA\Activity\UserSettings;
+use OCA\ExtendedActivity\Data;
+use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\MailQueueHandler;
+use OCA\ExtendedActivity\UserSettings;
 use OCP\Activity\IEvent;
 use OCP\Activity\IManager;
 use OCP\IConfig;
@@ -50,7 +50,7 @@ use Psr\Log\LoggerInterface;
  * Class MailQueueHandlerTest
  *
  * @group DB
- * @package OCA\Activity\Tests
+ * @package OCA\ExtendedActivity\Tests
  */
 class MailQueueHandlerTest extends TestCase {
 	/** @var MailQueueHandler */

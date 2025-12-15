@@ -22,9 +22,9 @@ declare(strict_types=1);
  *
  */
 
-namespace OCA\Activity\Tests\Listener;
+namespace OCA\ExtendedActivity\Tests\Listener;
 
-use OCA\Activity\Listener\SetUserDefaults;
+use OCA\ExtendedActivity\Listener\SetUserDefaults;
 use OCP\IConfig;
 use OCP\IUser;
 use OCP\User\Events\PostLoginEvent;

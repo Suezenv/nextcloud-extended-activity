@@ -15,7 +15,7 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"OCA\\Activity\\": "./lib/"
+			"OCA\\ExtendedActivity\\": "./lib/"
 		}
 	},
 	"scripts": {

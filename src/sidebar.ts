@@ -16,7 +16,7 @@ let activityTabApp: App<Element> | null = null
 let activityTabInstance: ComponentPublicInstance<ActivityTabType> | null = null
 
 const activityTab = new OCA.Files.Sidebar.Tab({
-	id: 'activity',
+	id: 'extended_activity',
 	name: t('activity', 'Activity'),
 	iconSvg: LightningBolt,
 
