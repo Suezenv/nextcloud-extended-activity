@@ -16,6 +16,7 @@ use OCA\ExtendedActivity\Dashboard\ActivityWidget;
 use OCA\ExtendedActivity\Data;
 use OCA\ExtendedActivity\FilesHooksStatic;
 use OCA\ExtendedActivity\GroupHelper;
+use OCA\ExtendedActivity\Listener\LoadFilesScriptsListener;
 use OCA\ExtendedActivity\Listener\LoadSidebarScripts;
 use OCA\ExtendedActivity\Listener\SetUserDefaults;
 use OCA\ExtendedActivity\Listener\ShareEventListener;
@@ -24,6 +25,7 @@ use OCA\ExtendedActivity\MailQueueHandler;
 use OCA\ExtendedActivity\NotificationGenerator;
 use OCA\ExtendedActivity\UserSettings;
 use OCA\Files\Event\LoadSidebar;
+use OCA\Files\Event\LoadAdditionalScriptsEvent;
 use OCP\Activity\IManager;
 use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
@@ -130,6 +132,7 @@ class Application extends App implements IBootstrap {
 		$context->registerEventListener(LoadSidebar::class, LoadSidebarScripts::class);
 		$context->registerEventListener(UserDeletedEvent::class, UserDeleted::class);
 		$context->registerEventListener(PostLoginEvent::class, SetUserDefaults::class);
+		$context->registerEventListener(LoadAdditionalScriptsEvent::class, LoadFilesScriptsListener::class);
 		$context->registerDashboardWidget(ActivityWidget::class);
 
 		$this->registerFilesActivity($context);

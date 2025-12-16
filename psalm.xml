@@ -30,6 +30,7 @@
 				<referencedClass name="Doctrine\DBAL\Types\Types" />
 				<referencedClass name="OC" />
 				<referencedClass name="OCA\Files\Event\LoadSidebar" />
+				<referencedClass name="OCA\Files\Event\LoadAdditionalScriptsEvent" />
 				<referencedClass name="OCA\Files_Sharing\External\Storage" />
 				<referencedClass name="OCA\Files_Sharing\SharedStorage" />
 				<referencedClass name="OC\Core\Command\Base" />
