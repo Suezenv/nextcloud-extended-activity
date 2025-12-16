@@ -11,6 +11,7 @@ export default createAppConfig({
 	sidebar: join(__dirname, 'src', 'sidebar.js'),
 	personalSettings: join(__dirname, 'src', 'settings-personal.js'),
 	adminSettings: join(__dirname, 'src', 'settings-admin.js'),
+	filesPlugin: join(__dirname, 'src', 'filesPlugin.ts'),
 }, {
 	inlineCSS: { relativeCSSInjection: true },
 	thirdPartyLicense: false,

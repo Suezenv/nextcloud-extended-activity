@@ -20,5 +20,7 @@ return [
 		['name' => 'Feed#show', 'url' => '/rss.php', 'verb' => 'GET'],
 		['name' => 'Activities#index', 'url' => '/', 'verb' => 'GET'],
 		['name' => 'Activities#showList', 'url' => '/{filter}', 'verb' => 'GET'],
+		['name' => 'subscription#createSubscription','url' => '/api/subscriptions','verb' => 'POST'],
+        ['name' => 'subscription#deleteSubscription','url' => '/api/subscriptions','verb'=> 'DELETE'],
 	],
 ];
