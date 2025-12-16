@@ -234,7 +234,7 @@ class MailQueueHandler {
 	 */
 	protected function getLanguage(string $lang): IL10N {
 		if (!isset($this->languages[$lang])) {
-			$this->languages[$lang] = $this->lFactory->get('activity', $lang);
+			$this->languages[$lang] = $this->lFactory->get('extended_activity', $lang);
 		}
 
 		return $this->languages[$lang];

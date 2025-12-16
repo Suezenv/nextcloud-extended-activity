@@ -36,7 +36,7 @@ class AdminSection implements IIconSection {
 	 */
 	#[\Override]
 	public function getIcon() {
-		return $this->url->imagePath('activity', 'activity-dark.svg');
+		return $this->url->imagePath('extended_activity', 'activity-dark.svg');
 	}
 
 	/**
@@ -48,7 +48,7 @@ class AdminSection implements IIconSection {
 	 */
 	#[\Override]
 	public function getID() {
-		return 'activity';
+		return 'extended_activity';
 	}
 
 	/**
@@ -60,7 +60,7 @@ class AdminSection implements IIconSection {
 	 */
 	#[\Override]
 	public function getName() {
-		return $this->l->t('Activity');
+		return $this->l->t('Extended Activity');
 	}
 
 	/**

@@ -28,13 +28,13 @@ export type SettingsState = {
 const store = new createStore({
 	strict: true,
 	state: {
-		setting: loadState('activity', 'setting'),
-		activityGroups: loadState('activity', 'activity_groups'),
-		isEmailSet: loadState('activity', 'is_email_set'),
-		emailEnabled: loadState('activity', 'email_enabled'),
-		activityDigestEnabled: loadState('activity', 'activity_digest_enabled', false),
-		settingBatchtime: loadState('activity', 'setting_batchtime'),
-		methods: loadState('activity', 'methods'),
+		setting: loadState('extended_activity', 'setting'),
+		activityGroups: loadState('extended_activity', 'activity_groups'),
+		isEmailSet: loadState('extended_activity', 'is_email_set'),
+		emailEnabled: loadState('extended_activity', 'email_enabled'),
+		activityDigestEnabled: loadState('extended_activity', 'activity_digest_enabled', false),
+		settingBatchtime: loadState('extended_activity', 'setting_batchtime'),
+		methods: loadState('extended_activity', 'methods'),
 		endpoint: '',
 	} as SettingsState,
 	getters: {
@@ -283,7 +283,7 @@ const store = new createStore({
 			)
 
 			try {
-				OCP.AppConfig.setValue('activity', 'enable_email', emailEnabled ? 'yes' : 'no')
+				OCP.AppConfig.setValue('extended_activity', 'enable_email', emailEnabled ? 'yes' : 'no')
 
 				showSuccess(t('activity', 'Your settings have been updated.'))
 			} catch (error) {

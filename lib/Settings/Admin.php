@@ -96,7 +96,7 @@ class Admin implements ISettings {
 		$this->initialState->provideInitialState('setting', 'admin');
 		$this->initialState->provideInitialState('activity_groups', $activityGroups);
 		$this->initialState->provideInitialState('is_email_set', true);
-		$this->initialState->provideInitialState('email_enabled', $this->config->getAppValue('activity', 'enable_email', 'yes') === 'yes');
+		$this->initialState->provideInitialState('email_enabled', $this->config->getAppValue('extended_activity', 'enable_email', 'yes') === 'yes');
 
 		$this->initialState->provideInitialState('setting_batchtime', $settingBatchTime);
 
@@ -105,12 +105,12 @@ class Admin implements ISettings {
 			IExtension::METHOD_NOTIFICATION => $this->l10n->t('Push'),
 		]);
 
-		return new TemplateResponse('activity', 'settings/admin', [], 'blank');
+		return new TemplateResponse('extended_activity', 'settings/admin', [], 'blank');
 	}
 
 	#[\Override]
 	public function getSection(): string {
-		return 'activity';
+		return 'extended_activity';
 	}
 
 	#[\Override]

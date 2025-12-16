@@ -36,30 +36,30 @@ class SetUserDefaults implements IEventListener {
 	}
 
 	private function setDefaultsForUser(IUser $user): void {
-		if ($this->config->getUserValue($user->getUID(), 'activity', 'configured', 'no') === 'yes') {
+		if ($this->config->getUserValue($user->getUID(), 'extended_activity', 'configured', 'no') === 'yes') {
 			// Already has settings
 			return;
 		}
 
-		foreach ($this->config->getAppKeys('activity') as $key) {
+		foreach ($this->config->getAppKeys('extended_activity') as $key) {
 			if (strpos($key, 'notify_') !== 0) {
 				continue;
 			}
 
-			if ($this->config->getUserValue($user->getUID(), 'activity', $key, null) !== null) {
+			if ($this->config->getUserValue($user->getUID(), 'extended_activity', $key, null) !== null) {
 				// Already has this setting
 				continue;
 			}
 
 			$this->config->setUserValue(
 				$user->getUID(),
-				'activity',
+				'extended_activity',
 				$key,
-				$this->config->getAppValue('activity', $key)
+				$this->config->getAppValue('extended_activity', $key)
 			);
 		}
 
 		// Mark settings as configured
-		$this->config->setUserValue($user->getUID(), 'activity', 'configured', 'yes');
+		$this->config->setUserValue($user->getUID(), 'extended_activity', 'configured', 'yes');
 	}
 }
