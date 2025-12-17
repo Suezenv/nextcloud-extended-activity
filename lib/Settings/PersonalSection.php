@@ -38,7 +38,7 @@ class PersonalSection implements IIconSection {
 	 */
 	#[\Override]
 	public function getIcon() {
-		return $this->url->imagePath('activity', 'notifications-dark.svg');
+		return $this->url->imagePath('extended_activity', 'notifications-dark.svg');
 	}
 
 	/**

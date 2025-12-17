@@ -106,7 +106,7 @@ class Personal implements ISettings {
 			$settingBatchTime = UserSettings::EMAIL_SEND_ASAP;
 		}
 
-		$emailEnabled = $this->config->getAppValue('activity', 'enable_email', 'yes') === 'yes';
+		$emailEnabled = $this->config->getAppValue('extended_activity', 'enable_email', 'yes') === 'yes';
 		if ($emailEnabled) {
 			$methods = [
 				IExtension::METHOD_MAIL => $this->l10n->t('Mail'),
@@ -115,7 +115,7 @@ class Personal implements ISettings {
 			$methods = [];
 		}
 
-		if ($this->config->getAppValue('activity', 'enable_notify', 'yes') === 'yes') {
+		if ($this->config->getAppValue('extended_activity', 'enable_notify', 'yes') === 'yes') {
 			$methods[IExtension::METHOD_NOTIFICATION] = $this->l10n->t('Push');
 		}
 
@@ -128,7 +128,7 @@ class Personal implements ISettings {
 		$this->initialState->provideInitialState('activity_digest_enabled', $this->userSettings->getUserSetting($this->userId, 'setting', 'activity_digest'));
 
 
-		return new TemplateResponse('activity', 'settings/personal', [
+		return new TemplateResponse('extended_activity', 'settings/personal', [
 			'setting' => 'personal',
 			'activityGroups' => $activityGroups,
 			'is_email_set' => $this->user instanceof IUser && !empty($this->user->getEMailAddress()),

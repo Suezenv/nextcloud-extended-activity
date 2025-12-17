@@ -31,6 +31,7 @@ use OCP\AppFramework\App;
 use OCP\AppFramework\Bootstrap\IBootContext;
 use OCP\AppFramework\Bootstrap\IBootstrap;
 use OCP\AppFramework\Bootstrap\IRegistrationContext;
+use OCP\Files\IRootFolder;
 use OCP\IConfig;
 use OCP\IDateTimeFormatter;
 use OCP\IDBConnection;
@@ -102,6 +103,7 @@ class Application extends App implements IBootstrap {
 				$c->get('ActivityConnectionAdapter'),
 				$c->get(LoggerInterface::class),
 				$c->get(IConfig::class),
+				$c->get(IRootFolder::class),
 			);
 		});
 

@@ -48,7 +48,7 @@ class RemoveFormerActivitySettings extends TimedJob {
 	protected function removeFormerPreference(array $preferencesToKeep): void {
 		$query = $this->db->getQueryBuilder();
 		$query->delete('preferences')
-			->where($query->expr()->eq('appid', $query->createNamedParameter('activity')))
+			->where($query->expr()->eq('appid', $query->createNamedParameter('extended_activity')))
 			->andWhere($query->expr()->like('configkey', $query->createNamedParameter($this->db->escapeLikeParameter('notify_') . '%')))
 			->andWhere($query->expr()->notIn('configkey', $query->createNamedParameter($preferencesToKeep, IQueryBuilder::PARAM_STR_ARRAY)));
 		$query->executeStatement();

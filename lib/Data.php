@@ -17,9 +17,12 @@ use OCP\Activity\IFilter;
 use OCP\Activity\IManager;
 use OCP\DB\Exception;
 use OCP\DB\QueryBuilder\IQueryBuilder;
+use OCP\Files\IRootFolder;
 use OCP\IConfig;
 use OCP\IDBConnection;
 use Psr\Log\LoggerInterface;
+use OCP\Files\Node;
+use OCP\Files\NotFoundException;
 
 /**
  * @brief Class for managing the data in the activities
@@ -35,6 +38,7 @@ class Data {
 		protected IDBConnection $connection,
 		protected LoggerInterface $logger,
 		protected IConfig $config,
+		protected IRootFolder $rootFolder,
 	) {
 	}
 
@@ -262,8 +266,56 @@ class Data {
 		} elseif ($filter === 'filter') {
 			$query->andWhere($query->expr()->eq('object_type', $query->createNamedParameter($objectType)));
 			$query->andWhere($query->expr()->eq('object_id', $query->createNamedParameter($objectId)));
-		}
+		} elseif ($filter === 'subscription') {
+            $subQuery = $this->connection->getQueryBuilder();
+            $subQuery->select('file_id')
+                ->from('ext_act_subscriptions')
+                ->where($subQuery->expr()->eq('user_id', $subQuery->createNamedParameter($user)));
+            
+            $resultIds = $subQuery->executeQuery();
+            $subscribedFileIds = array_map(function($row) {
+                return (int)$row['file_id'];
+            }, $resultIds->fetchAll());
+            $resultIds->closeCursor();
 
+            if (empty($subscribedFileIds)) {
+                $query->andWhere($query->expr()->eq('1', '0'));
+            } else {
+                $userFolder = $this->rootFolder->getUserFolder($user);
+                $pathsToFilter = [];
+
+                foreach ($subscribedFileIds as $fileId) {
+                    try {
+                        $nodes = $userFolder->getById($fileId);
+                        if (!empty($nodes)) {
+                            $pathsToFilter[] = $userFolder->getRelativePath($nodes[0]->getPath());
+                        }
+                    } catch (NotFoundException $e) {
+                        continue;
+                    }
+                }
+
+                if (empty($pathsToFilter)) {
+                    $query->andWhere($query->expr()->eq('1', '0'));
+                } else {
+                    $orExpression = $query->expr()->orX();
+
+                    foreach ($pathsToFilter as $path) {
+                        $orExpression->add(
+                            $query->expr()->eq('file', $query->createNamedParameter($path))
+                        );
+                        $orExpression->add(
+                            $query->expr()->like('file', $query->createNamedParameter($path . '/%'))
+                        );
+                    }
+                    $query->andWhere($orExpression);
+
+                    $query->andWhere(
+                        $query->expr()->eq('object_type', $query->createNamedParameter('files'))
+                    );
+                }
+            }
+        }
 		if ($activeFilter instanceof IFilter) {
 			$apps = $activeFilter->allowedApps();
 			if (!empty($apps)) {

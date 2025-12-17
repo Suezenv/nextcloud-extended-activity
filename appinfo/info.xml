@@ -65,6 +65,7 @@
 			<filter>OCA\ExtendedActivity\Filter\AllFilter</filter>
 			<filter>OCA\ExtendedActivity\Filter\SelfFilter</filter>
 			<filter>OCA\ExtendedActivity\Filter\ByFilter</filter>
+			<filter>OCA\ExtendedActivity\Filter\SubscriptionFilter</filter>
 		</filters>
 	</activity>
 

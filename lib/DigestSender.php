@@ -44,7 +44,7 @@ class DigestSender {
 		$users = $this->getDigestUsers();
 		$userLanguages = $this->config->getUserValueForUsers('core', 'lang', $users);
 		$userTimezones = $this->config->getUserValueForUsers('core', 'timezone', $users);
-		$digestDate = $this->config->getUserValueForUsers('activity', 'digest', $users);
+		$digestDate = $this->config->getUserValueForUsers('extended_activity', 'digest', $users);
 		$defaultLanguage = $this->config->getSystemValue('default_language', 'en');
 		$defaultTimeZone = date_default_timezone_get();
 		$timezoneDigestDay = [];
@@ -85,7 +85,7 @@ class DigestSender {
 			}
 			// We still update the digest time after an failed email,
 			// so it hopefully works tomorrow
-			$this->config->setUserValue($userObject->getUID(), 'activity', 'digest', $timezoneDigestDay[$timezone]);
+			$this->config->setUserValue($userObject->getUID(), 'extended_activity', 'digest', $timezoneDigestDay[$timezone]);
 		}
 
 		$this->activityManager->setRequirePNG(false);
@@ -97,11 +97,11 @@ class DigestSender {
 	 * @return string[]
 	 */
 	private function getDigestUsers(): array {
-		return $this->config->getUsersForUserValue('activity', 'notify_setting_activity_digest', '1');
+		return $this->config->getUsersForUserValue('extended_activity', 'notify_setting_activity_digest', '1');
 	}
 
 	private function getLastSendActivity(string $user, int $now): int {
-		$lastSend = (int)$this->config->getUserValue($user, 'activity', 'activity_digest_last_send', 0);
+		$lastSend = (int)$this->config->getUserValue($user, 'extended_activity', 'activity_digest_last_send', 0);
 		if ($lastSend > 0) {
 			return $lastSend;
 		}
@@ -117,12 +117,12 @@ class DigestSender {
 		['max' => $lastActivityId] = $this->data->getActivitySince($uid, $lastSend, true);
 		$lastActivityId = (int)$lastActivityId;
 
-		$this->config->setUserValue($uid, 'activity', 'activity_digest_last_send', (string)$lastActivityId);
+		$this->config->setUserValue($uid, 'extended_activity', 'activity_digest_last_send', (string)$lastActivityId);
 	}
 
 	public function sendDigestForUser(IUser $user, int $now, string $timezone, string $language) {
 		$uid = $user->getUID();
-		$l10n = $this->l10nFactory->get('activity', $language);
+		$l10n = $this->l10nFactory->get('extended_activity', $language);
 		$this->groupHelper->setL10n($l10n);
 		$lastSend = $this->getLastSendActivity($uid, $now);
 		if ($lastSend === 0) {
@@ -203,7 +203,7 @@ class DigestSender {
 		$this->activityManager->setCurrentUserId(null);
 		try {
 			$this->mailer->send($message);
-			$this->config->setUserValue($uid, 'activity', 'activity_digest_last_send', (string)$lastActivityId);
+			$this->config->setUserValue($uid, 'extended_activity', 'activity_digest_last_send', (string)$lastActivityId);
 		} catch (\Exception $e) {
 			$this->logger->error($e->getMessage());
 			return;

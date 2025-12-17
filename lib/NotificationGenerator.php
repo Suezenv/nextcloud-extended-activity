@@ -94,12 +94,12 @@ class NotificationGenerator implements INotifier {
 
 	#[\Override]
 	public function getID(): string {
-		return 'activity';
+		return 'extended_activity';
 	}
 
 	#[\Override]
 	public function getName(): string {
-		return 'Activity';
+		return 'Extended Activity';
 	}
 
 	#[\Override]

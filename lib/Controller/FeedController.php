@@ -53,14 +53,14 @@ class FeedController extends Controller {
 			$userLang = $this->config->getUserValue($user, 'core', 'lang');
 
 			// Overwrite user and language in the helper
-			$this->l = $this->l10nFactory->get('activity', $userLang);
+			$this->l = $this->l10nFactory->get('extended_activity', $userLang);
 			$this->helper->setL10n($this->l);
 
 			$description = $this->l->t('Personal activity feed for %s', $user);
 			$response = $this->data->get($this->helper, $this->settings, $user, 0, self::DEFAULT_PAGE_SIZE, 'desc', 'all');
 			$activities = $response['data'];
 		} catch (\UnexpectedValueException $e) {
-			$this->l = $this->l10nFactory->get('activity');
+			$this->l = $this->l10nFactory->get('extended_activity');
 			$description = $this->l->t('Your feed URL is invalid');
 
 			$activities = [
@@ -74,7 +74,7 @@ class FeedController extends Controller {
 		}
 
 		$title = $this->themingDefaults->getTitle();
-		$response = new TemplateResponse('activity', 'rss', [
+		$response = new TemplateResponse('extended_activity', 'rss', [
 			'rssLang' => $this->l->getLanguageCode(),
 			'rssLink' => $this->urlGenerator->linkToRouteAbsolute('activity.Feed.show'),
 			'rssPubDate' => date('r'),

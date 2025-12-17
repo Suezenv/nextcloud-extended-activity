@@ -55,14 +55,14 @@ class SettingsController extends Controller {
 		$settings = $this->manager->getSettings();
 		foreach ($settings as $setting) {
 			$this->config->setUserValue(
-				$this->user, 'activity',
+				$this->user, 'extended_activity',
 				'notify_notification_' . $setting->getIdentifier(),
 				(string)(int)$this->request->getParam($setting->getIdentifier() . '_notification', false)
 			);
 
 			if ($setting->canChangeMail()) {
 				$this->config->setUserValue(
-					$this->user, 'activity',
+					$this->user, 'extended_activity',
 					'notify_email_' . $setting->getIdentifier(),
 					(string)(int)$this->request->getParam($setting->getIdentifier() . '_email', false)
 				);
@@ -79,22 +79,22 @@ class SettingsController extends Controller {
 		}
 
 		$this->config->setUserValue(
-			$this->user, 'activity',
+			$this->user, 'extended_activity',
 			'notify_setting_batchtime',
 			(string)$email_batch_time
 		);
 		$this->config->setUserValue(
-			$this->user, 'activity',
+			$this->user, 'extended_activity',
 			'notify_setting_self',
 			(string)(int)$notify_setting_self
 		);
 		$this->config->setUserValue(
-			$this->user, 'activity',
+			$this->user, 'extended_activity',
 			'notify_setting_selfemail',
 			(string)(int)$notify_setting_selfemail
 		);
 		$this->config->setUserValue(
-			$this->user, 'activity',
+			$this->user, 'extended_activity',
 			'notify_setting_activity_digest',
 			(string)(int)$activity_digest
 		);
@@ -119,14 +119,14 @@ class SettingsController extends Controller {
 		$settings = $this->manager->getSettings();
 		foreach ($settings as $setting) {
 			$this->config->setAppValue(
-				'activity',
+				'extended_activity',
 				'notify_notification_' . $setting->getIdentifier(),
 				(string)(int)$this->request->getParam($setting->getIdentifier() . '_notification', false)
 			);
 
 			if ($setting->canChangeMail()) {
 				$this->config->setAppValue(
-					'activity',
+					'extended_activity',
 					'notify_email_' . $setting->getIdentifier(),
 					(string)(int)$this->request->getParam($setting->getIdentifier() . '_email', false)
 				);
@@ -143,17 +143,17 @@ class SettingsController extends Controller {
 		}
 
 		$this->config->setAppValue(
-			'activity',
+			'extended_activity',
 			'notify_setting_batchtime',
 			(string)$email_batch_time
 		);
 		$this->config->setAppValue(
-			'activity',
+			'extended_activity',
 			'notify_setting_self',
 			(string)(int)$notify_setting_self
 		);
 		$this->config->setAppValue(
-			'activity',
+			'extended_activity',
 			'notify_setting_selfemail',
 			(string)(int)$notify_setting_selfemail
 		);
@@ -180,13 +180,13 @@ class SettingsController extends Controller {
 			// Check for collisions
 			while (!empty($conflicts)) {
 				$token = $this->random->generate(30, ISecureRandom::CHAR_UPPER . ISecureRandom::CHAR_LOWER . ISecureRandom::CHAR_DIGITS);
-				$conflicts = $this->config->getUsersForUserValue('activity', 'rsstoken', $token);
+				$conflicts = $this->config->getUsersForUserValue('extended_activity', 'rsstoken', $token);
 			}
 
 			$tokenUrl = $this->urlGenerator->linkToRouteAbsolute('activity.Feed.show', ['token' => $token]);
 		}
 
-		$this->config->setUserValue($this->user, 'activity', 'rsstoken', $token);
+		$this->config->setUserValue($this->user, 'extended_activity', 'rsstoken', $token);
 
 		return new DataResponse([
 			'data' => [

@@ -48,7 +48,7 @@ class UserSettings {
 	 * @return bool|int
 	 */
 	public function getUserSetting($user, $method, $type) {
-		if ($method === 'email' && $this->config->getAppValue('activity', 'enable_email', 'yes') === 'no') {
+		if ($method === 'email' && $this->config->getAppValue('extended_activity', 'enable_email', 'yes') === 'no') {
 			return false;
 		}
 
@@ -60,7 +60,7 @@ class UserSettings {
 		if (is_bool($defaultSetting)) {
 			return (bool)$this->config->getUserValue(
 				$user,
-				'activity',
+				'extended_activity',
 				'notify_' . $method . '_' . $type,
 				$defaultSetting
 			);
@@ -68,7 +68,7 @@ class UserSettings {
 
 		return (int)$this->config->getUserValue(
 			$user,
-			'activity',
+			'extended_activity',
 			'notify_' . $method . '_' . $type,
 			$defaultSetting
 		);
@@ -86,14 +86,14 @@ class UserSettings {
 		$defaultSetting = $this->getDefaultSetting($method, $type);
 		if (is_bool($defaultSetting)) {
 			return (bool)$this->config->getAppValue(
-				'activity',
+				'extended_activity',
 				'notify_' . $method . '_' . $type,
 				(string)$defaultSetting
 			);
 		}
 
 		return (int)$this->config->getAppValue(
-			'activity',
+			'extended_activity',
 			'notify_' . $method . '_' . $type,
 			(string)$defaultSetting
 		);
@@ -199,7 +199,7 @@ class UserSettings {
 			return [];
 		}
 
-		if ($method === 'email' && $this->config->getAppValue('activity', 'enable_email', 'yes') === 'no') {
+		if ($method === 'email' && $this->config->getAppValue('extended_activity', 'enable_email', 'yes') === 'no') {
 			return [];
 		}
 
@@ -209,7 +209,7 @@ class UserSettings {
 		}
 
 		$filteredUsers = [];
-		$potentialUsers = $this->config->getUserValueForUsers('activity', 'notify_' . $method . '_' . $type, $users);
+		$potentialUsers = $this->config->getUserValueForUsers('extended_activity', 'notify_' . $method . '_' . $type, $users);
 		foreach ($potentialUsers as $user => $value) {
 			if ($value) {
 				$filteredUsers[$user] = true;
@@ -219,7 +219,7 @@ class UserSettings {
 
 		// Get the batch time setting from the database
 		if ($method === 'email') {
-			$potentialUsers = $this->config->getUserValueForUsers('activity', 'notify_setting_batchtime', array_keys($filteredUsers));
+			$potentialUsers = $this->config->getUserValueForUsers('extended_activity', 'notify_setting_batchtime', array_keys($filteredUsers));
 			foreach ($potentialUsers as $user => $value) {
 				$filteredUsers[$user] = $value;
 			}

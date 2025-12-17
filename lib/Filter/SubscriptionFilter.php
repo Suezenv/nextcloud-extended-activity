@@ -11,7 +11,7 @@ use OCP\Activity\IFilter;
 use OCP\IL10N;
 use OCP\IURLGenerator;
 
-class AllFilter implements IFilter {
+class SubscriptionFilter implements IFilter {
 	/** @var IL10N */
 	protected $l;
 
@@ -33,7 +33,7 @@ class AllFilter implements IFilter {
 	 */
 	#[\Override]
 	public function getIdentifier() {
-		return 'all';
+		return 'subscription';
 	}
 
 	/**
@@ -42,7 +42,7 @@ class AllFilter implements IFilter {
 	 */
 	#[\Override]
 	public function getName() {
-		return $this->l->t('All activities');
+		return $this->l->t('Your Subscriptions');
 	}
 
 	/**
@@ -51,7 +51,7 @@ class AllFilter implements IFilter {
 	 */
 	#[\Override]
 	public function getPriority() {
-		return 0;
+		return 50;
 	}
 
 	/**
@@ -60,7 +60,7 @@ class AllFilter implements IFilter {
 	 */
 	#[\Override]
 	public function getIcon() {
-		return $this->url->getAbsoluteURL($this->url->imagePath('extended_activity', 'activity-dark.svg'));
+		return $this->url->getAbsoluteURL($this->url->imagePath('core', 'actions/user.svg'));
 	}
 
 	/**

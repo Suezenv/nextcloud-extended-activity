@@ -93,7 +93,7 @@ class ActivitiesController extends Controller {
 	 * Link to RSS feed if there is a RSS token, empty string otherwise
 	 */
 	protected function getRSSLink(): string {
-		$rssToken = $this->config->getUserValue($this->userId, 'activity', 'rsstoken');
+		$rssToken = $this->config->getUserValue($this->userId, 'extended_activity', 'rsstoken');
 		if ($rssToken) {
 			return $this->urlGenerator->linkToRouteAbsolute('activity.Feed.show', ['token' => $rssToken]);
 		} else {
